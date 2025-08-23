@@ -1,51 +1,257 @@
 .markdown {
-  @apply text-lg leading-relaxed text-gray-200; /* softer than pure white */
+  @apply text-lg leading-relaxed text-neutral-200 max-w-none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.7;
 }
 
-/* Paragraphs, lists, and blockquotes spacing */
-.markdown p,
-.markdown ul,
-.markdown ol,
-.markdown blockquote {
-  @apply my-5;
+/* Paragraphs with better spacing */
+.markdown p {
+  @apply mb-6 text-neutral-300;
+  line-height: 1.75;
 }
 
-/* Headings */
+.markdown p:last-child {
+  @apply mb-0;
+}
+
+/* Enhanced headings with better hierarchy */
+.markdown h1 {
+  @apply text-4xl md:text-5xl font-bold mt-12 mb-8 text-neutral-100 leading-tight;
+  letter-spacing: -0.025em;
+}
+
 .markdown h2 {
-  @apply text-3xl mt-10 mb-5 font-semibold leading-snug text-gray-100; /* slightly brighter than body */
+  @apply text-3xl md:text-4xl font-bold mt-12 mb-6 text-neutral-100 leading-tight;
+  letter-spacing: -0.02em;
 }
 
 .markdown h3 {
-  @apply text-2xl mt-8 mb-4 font-semibold leading-snug text-gray-100;
+  @apply text-2xl md:text-3xl font-semibold mt-10 mb-5 text-neutral-100 leading-tight;
+  letter-spacing: -0.015em;
 }
 
-/* Lists */
+.markdown h4 {
+  @apply text-xl md:text-2xl font-semibold mt-8 mb-4 text-neutral-200 leading-tight;
+}
+
+.markdown h5 {
+  @apply text-lg md:text-xl font-semibold mt-6 mb-3 text-neutral-200 leading-tight;
+}
+
+.markdown h6 {
+  @apply text-base md:text-lg font-semibold mt-6 mb-3 text-neutral-300 leading-tight;
+}
+
+/* First paragraph after heading - reduce top margin */
+.markdown h1 + p,
+.markdown h2 + p,
+.markdown h3 + p,
+.markdown h4 + p,
+.markdown h5 + p,
+.markdown h6 + p {
+  @apply mt-0;
+}
+
+/* Enhanced lists */
 .markdown ul,
 .markdown ol {
-  @apply list-inside list-disc;
+  @apply my-6 pl-6;
 }
 
-/* Blockquotes */
+.markdown ul {
+  @apply list-none;
+}
+
+.markdown ul li {
+  @apply relative mb-3 pl-6 text-neutral-300;
+}
+
+.markdown ul li::before {
+  content: "•";
+  @apply absolute left-0 text-neutral-500 font-bold;
+}
+
+.markdown ol {
+  @apply list-decimal;
+}
+
+.markdown ol li {
+  @apply mb-3 pl-2 text-neutral-300;
+}
+
+.markdown li p {
+  @apply mb-3;
+}
+
+/* Nested lists */
+.markdown ul ul,
+.markdown ol ol,
+.markdown ul ol,
+.markdown ol ul {
+  @apply my-3;
+}
+
+/* Enhanced blockquotes */
 .markdown blockquote {
-  @apply border-l-4 border-gray-600 pl-4 italic text-gray-300 bg-gray-800;
+  @apply border-l-4 border-neutral-600 pl-6 pr-4 py-4 my-8 bg-neutral-800/50 rounded-r-lg;
+  font-style: italic;
 }
 
-/* Links */
+.markdown blockquote p {
+  @apply text-neutral-300 mb-4 text-xl leading-relaxed;
+}
+
+.markdown blockquote p:last-child {
+  @apply mb-0;
+}
+
+/* Enhanced links */
 .markdown a {
-  @apply text-yellow-400 underline hover:text-yellow-300 transition-colors;
+  @apply text-blue-400 no-underline hover:text-blue-300 transition-all duration-200 relative;
+  border-bottom: 1px solid transparent;
 }
 
-/* Inline code */
+.markdown a:hover {
+  @apply border-blue-400;
+}
+
+/* Strong and emphasis */
+.markdown strong {
+  @apply font-semibold text-neutral-100;
+}
+
+.markdown em {
+  @apply italic text-neutral-200;
+}
+
+/* Enhanced inline code */
 .markdown code {
-  @apply bg-gray-700 text-yellow-300 px-1 rounded font-mono text-sm;
+  @apply bg-neutral-800 text-pink-400 px-2 py-1 rounded-md font-mono text-sm border border-neutral-700;
+  font-size: 0.875em;
 }
 
-/* Code blocks */
+/* Enhanced code blocks */
 .markdown pre {
-  @apply bg-gray-900 text-gray-200 p-4 rounded overflow-x-auto font-mono text-sm;
+  @apply bg-neutral-900 border border-neutral-700 rounded-lg p-6 my-8 overflow-x-auto shadow-lg;
 }
 
-/* Images */
+.markdown pre code {
+  @apply bg-transparent text-neutral-200 p-0 border-0 text-sm leading-relaxed;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
+}
+
+/* Tables */
+.markdown table {
+  @apply w-full my-8 border-collapse;
+}
+
+.markdown th,
+.markdown td {
+  @apply border border-neutral-700 px-4 py-3 text-left;
+}
+
+.markdown th {
+  @apply bg-neutral-800 font-semibold text-neutral-100;
+}
+
+.markdown td {
+  @apply bg-neutral-900/50 text-neutral-300;
+}
+
+.markdown tr:hover td {
+  @apply bg-neutral-800/50;
+}
+
+/* Enhanced images */
 .markdown img {
-  @apply my-6 rounded shadow-lg;
+  @apply my-8 rounded-lg shadow-2xl max-w-full h-auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Horizontal rules */
+.markdown hr {
+  @apply border-0 h-px bg-gradient-to-r from-transparent via-neutral-600 to-transparent my-12;
+}
+
+/* Figure and figcaption */
+.markdown figure {
+  @apply my-8;
+}
+
+.markdown figcaption {
+  @apply text-center text-sm text-neutral-500 mt-3 italic;
+}
+
+/* Keyboard shortcuts */
+.markdown kbd {
+  @apply bg-neutral-700 border border-neutral-600 rounded px-2 py-1 text-xs font-mono text-neutral-200 shadow-sm;
+}
+
+/* Abbreviations */
+.markdown abbr {
+  @apply border-b border-dotted border-neutral-500 cursor-help;
+}
+
+/* Mark/highlight */
+.markdown mark {
+  @apply bg-yellow-400/20 text-yellow-200 px-1 rounded;
+}
+
+/* Small text */
+.markdown small {
+  @apply text-sm text-neutral-400;
+}
+
+/* Subscript and superscript */
+.markdown sub,
+.markdown sup {
+  @apply text-xs relative;
+}
+
+.markdown sub {
+  @apply -bottom-1;
+}
+
+.markdown sup {
+  @apply -top-1;
+}
+
+/* Definition lists */
+.markdown dl {
+  @apply my-6;
+}
+
+.markdown dt {
+  @apply font-semibold text-neutral-200 mt-4 mb-2;
+}
+
+.markdown dd {
+  @apply ml-6 text-neutral-300 mb-4;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .markdown {
+    @apply text-base;
+  }
+  
+  .markdown h1 {
+    @apply text-3xl mt-8 mb-6;
+  }
+  
+  .markdown h2 {
+    @apply text-2xl mt-8 mb-5;
+  }
+  
+  .markdown h3 {
+    @apply text-xl mt-6 mb-4;
+  }
+  
+  .markdown pre {
+    @apply p-4 rounded-md;
+  }
+  
+  .markdown blockquote {
+    @apply pl-4 pr-2;
+  }
 }

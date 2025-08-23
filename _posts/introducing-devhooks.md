@@ -12,7 +12,7 @@ ogImage:
 
 ### Hey, I’m Kitsao 👋
 
-Building **Devhooks**, a better way to work with webhooks and events.
+I’m building **Devhooks**, a simpler, smarter way to work with webhooks and real-time events.
 
 Over the past few years, I’ve worked on multiple projects where webhooks played a huge role, from payments and notifications to integrations with third-party APIs. Debugging and testing them, however, has always been… painful.
 
