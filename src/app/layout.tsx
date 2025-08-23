@@ -11,9 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: `Devhooks Blog Example`,
-  description: `A statically generated blog example showcasing webhooks, real-time events, and integrations with Devhooks.`,
+  description: `Engineering blog showcasing webhooks, real-time events, and integrations with Devhooks.`,
   openGraph: {
-    images: ['/assets/dh-cover.png'], // replace with your OG image URL
+    images: ['/assets/blog/hello-world/cover.jpg'], // replace with your OG image URL
   },
 };
 
