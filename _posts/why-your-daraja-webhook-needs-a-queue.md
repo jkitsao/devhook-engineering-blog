@@ -1,5 +1,5 @@
 ---
-title: "Your Daraja Webhook *Probably* Needs a Queue 📨"
+title: "Your Daraja Webhook Needs a Queue 📨"
 excerpt: "Why your Daraja webhooks fail under load and how queues can save you from dropped events."
 coverImage: "/assets/blog/daraja-queue/cover.webp"
 date: "2025-08-23T13:00:00.000Z"
