@@ -36,9 +36,9 @@ One of the standout features is **Devhooks Sync**, which turns your webhook even
 
 ## Try Devhooks Today
 
-If you enjoyed this post, you can explore **[Devhooks](https://devhooks.live)** — our free, live beta built right here in Nairobi. Devhooks makes working with webhooks and real-time events simple, reliable, and developer-friendly.
+If you enjoyed this post, you can explore **[Devhooks](https://devhooks.live)** our free, live beta built right here in Nairobi. Devhooks makes working with webhooks and real-time events simple, reliable, and developer-friendly.
 
 - **Live Beta:** [devhooks.live](https://devhooks.live)
 - **Contact / Feedback:** kitsao@devhooks.live
 
-I’d really appreciate your thoughts and feedback — this is my passion project, built to make developer workflows smoother and more predictable. Your input helps shape Devhooks into a tool that truly serves the community.
+I’d really appreciate your thoughts and feedback, this is my passion project, built to make developer workflows smoother and more predictable. Your input helps shape Devhooks into a tool that truly serves the community.
