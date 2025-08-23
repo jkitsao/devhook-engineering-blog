@@ -1,5 +1,5 @@
 ---
-title: "Introducing Devhooks 🚀"
+title: "Introducing Devhooks.live 🚀"
 # excerpt: "Test, Debug, and Simulate Webhooks with Ease"
 coverImage: "/assets/blog/dynamic-routing/cover.jpg"
 date: "2025-08-23T05:35:07.322Z"
@@ -16,7 +16,7 @@ Building **Devhooks**, a better way to work with webhooks and events.
 
 Over the past few years, I’ve worked on multiple projects where webhooks played a huge role, from payments and notifications to integrations with third-party APIs. Debugging and testing them, however, has always been… painful.
 
-I’ve been immersed in projects where event-driven systems were at the heart of operations. At **MyMovies.Africa**, I built a video encoding pipeline and a custom webhook system to emit real-time events about encoding jobs. Later, at **Old Mutual**, I managed dozens of webhook integrations powering M-Pesa paybills and other payment workflows. Today, as a consultant, I work on microfinance integrations with **Apache Fineract**, where events and webhooks are once again central to connecting systems seamlessly.
+At **MyMovies.Africa**, I built a video encoding pipeline and a custom webhook system to emit real-time events about encoding jobs. Later, at **Old Mutual**, I managed dozens of webhook integrations powering M-Pesa paybills and other payment workflows. Today, as a consultant, I work on microfinance integrations with **Apache Fineract**, where events and webhooks are once again central to connecting systems seamlessly.
 
 ### Comparing Daraja and Stripe
 

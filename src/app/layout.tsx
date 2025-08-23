@@ -10,7 +10,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `Devhooks Blog Example`,
+  title: `Devhooks Engineering `,
   description: `Engineering blog showcasing webhooks, real-time events, and integrations with Devhooks.`,
   openGraph: {
     images: ['/assets/blog/hello-world/cover.jpg'], // replace with your OG image URL
