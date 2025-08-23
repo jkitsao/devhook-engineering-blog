@@ -1,19 +1,33 @@
 ---
-title: "Dynamic Routing and Static Generation"
-excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
+title: "Introducing Devhooks 🚀"
+# excerpt: "Test, Debug, and Simulate Webhooks with Ease"
 coverImage: "/assets/blog/dynamic-routing/cover.jpg"
-date: "2020-03-16T05:35:07.322Z"
+date: "2025-08-23T05:35:07.322Z"
 author:
-  name: JJ Kasper
-  picture: "/assets/blog/authors/jj.jpeg"
+  name: Jackson Kitsao.
+  picture: "/assets/blog/authors/profile.png"
 ogImage:
   url: "/assets/blog/dynamic-routing/cover.jpg"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus. Praesent elementum facilisis leo vel fringilla. Congue mauris rhoncus aenean vel. Egestas sed tempus urna et pharetra pharetra massa massa ultricies.
+### Hey, I’m Kitsao 👋
 
-Venenatis cras sed felis eget velit. Consectetur libero id faucibus nisl tincidunt. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Volutpat consequat mauris nunc congue nisi vitae. Id aliquet risus feugiat in ante metus dictum at tempor. Sed blandit libero volutpat sed cras. Sed odio morbi quis commodo odio aenean sed adipiscing. Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in. Nibh cras pulvinar mattis nunc sed. Luctus accumsan tortor posuere ac ut consequat semper viverra. Fringilla ut morbi tincidunt augue interdum velit euismod.
+Building **Devhooks**, a better way to work with webhooks and events.
 
-## Lorem Ipsum
+Over the past few years, I’ve worked on multiple projects where webhooks played a huge role, from payments and notifications to integrations with third-party APIs. Debugging and testing them, however, has always been… painful.
 
-Tristique senectus et netus et malesuada fames ac turpis. Ridiculous mus mauris vitae ultricies leo integer malesuada nunc vel. In mollis nunc sed id semper. Egestas tellus rutrum tellus pellentesque. Phasellus vestibulum lorem sed risus ultricies tristique nulla. Quis blandit turpis cursus in hac habitasse platea dictumst quisque. Eros donec ac odio tempor orci dapibus ultrices. Aliquam sem et tortor consequat id porta nibh. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Diam vulputate ut pharetra sit amet. Ut tellus elementum sagittis vitae et leo. Arcu non odio euismod lacinia at quis risus sed vulputate.
+I’ve been immersed in projects where event-driven systems were at the heart of operations. At **MyMovies.Africa**, I built a video encoding pipeline and a custom webhook system to emit real-time events about encoding jobs. Later, at **Old Mutual**, I managed dozens of webhook integrations powering M-Pesa paybills and other payment workflows. Today, as a consultant, I work on microfinance integrations with **Apache Fineract**, where events and webhooks are once again central to connecting systems seamlessly.
+
+### Comparing Daraja and Stripe
+
+Working with webhooks in Kenya naturally brings Daraja into the conversation. Daraja, M-Pesa’s API platform, provides webhook notifications for transactions, which are essential for real-time updates in payment workflows. It covers the basics well but has some limitations compared to platforms like Stripe.
+
+Stripe, on the other hand, treats webhooks as a first-class feature. It provides a robust dashboard, detailed event logs, automatic retries, and rich event types covering payments, subscriptions, and refunds. These features make it easier for developers to debug, test, and manage webhooks without building additional tooling.
+
+Understanding these differences has influenced how I design webhook systems. With Devhooks, the goal is to combine the simplicity of Daraja with the observability and reliability features found in platforms like Stripe, making webhook integrations smoother and more predictable for developers everywhere.
+
+### Devhooks in Action
+
+With **Devhooks**, you don’t need to worry about building or managing complex infrastructure for webhooks. The **Devhooks Debugger** lets you inspect and test webhooks without needing tools like ngrok. Meanwhile, **Devhooks Ingest** handles observability, scaling, queues, and retries for you, all in a clean, intuitive dashboard. You can explore it here: [devhooks.live/ingest](https://devhooks.live/ingest).
+
+One of the standout features is **Devhooks Sync**, which turns your webhook events into real-time streams. Using a simple SDK, you can surface these events directly in your apps — for example, in a **Next.js** application. This makes it easy to build real-time experiences, like handling M-Pesa **STK Express** payments, without worrying about the underlying plumbing.

@@ -7,17 +7,17 @@ declare global {
   var updateDOM: () => void;
 }
 
-type ColorSchemePreference = "system" | "dark" | "light";
+type ColorSchemePreference =  "dark" ;
 
 const STORAGE_KEY = "nextjs-blog-starter-theme";
-const modes: ColorSchemePreference[] = ["system", "dark", "light"];
+const modes: ColorSchemePreference[] = ["dark"];
 
 /** to reuse updateDOM function defined inside injected script */
 
 /** function to be injected in script tag for avoiding FOUC (Flash of Unstyled Content) */
 export const NoFOUCScript = (storageKey: string) => {
   /* can not use outside constants or function as this script will be injected in a different context */
-  const [SYSTEM, DARK, LIGHT] = ["system", "dark", "light"];
+  const [ DARK] = [ "dark"];
 
   /** Modify transition globally to avoid patched transitions */
   const modifyTransition = () => {
@@ -38,9 +38,9 @@ export const NoFOUCScript = (storageKey: string) => {
   /** function to add remove dark class */
   window.updateDOM = () => {
     const restoreTransitions = modifyTransition();
-    const mode = localStorage.getItem(storageKey) ?? SYSTEM;
-    const systemMode = media.matches ? DARK : LIGHT;
-    const resolvedMode = mode === SYSTEM ? systemMode : mode;
+    const mode =  DARK;
+    const systemMode =  DARK ;
+    const resolvedMode = mode ;
     const classList = document.documentElement.classList;
     if (resolvedMode === DARK) classList.add(DARK);
     else classList.remove(DARK);
@@ -58,10 +58,7 @@ let updateDOM: () => void;
  */
 const Switch = () => {
   const [mode, setMode] = useState<ColorSchemePreference>(
-    () =>
-      ((typeof localStorage !== "undefined" &&
-        localStorage.getItem(STORAGE_KEY)) ??
-        "system") as ColorSchemePreference,
+    "dark"
   );
 
   useEffect(() => {
@@ -87,7 +84,7 @@ const Switch = () => {
     <button
       suppressHydrationWarning
       className={styles.switch}
-      onClick={handleModeSwitch}
+      // onClick={handleModeSwitch}
     />
   );
 };

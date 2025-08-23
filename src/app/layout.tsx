@@ -10,12 +10,13 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `Next.js Blog Example with ${CMS_NAME}`,
-  description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
+  title: `Devhooks Blog Example`,
+  description: `A statically generated blog example showcasing webhooks, real-time events, and integrations with Devhooks.`,
   openGraph: {
-    images: [HOME_OG_IMAGE_URL],
+    images: ['/assets/dh-cover.png'], // replace with your OG image URL
   },
 };
+
 
 export default function RootLayout({
   children,
@@ -58,7 +59,7 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body
-        className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
+        className={cn(inter.className, "dark:bg-neutral-900 dark:text-neutral-400")}
       >
         <ThemeSwitcher />
         <div className="min-h-screen">{children}</div>

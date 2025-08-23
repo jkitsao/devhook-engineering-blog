@@ -1,18 +1,51 @@
 .markdown {
-  @apply text-lg leading-relaxed;
+  @apply text-lg leading-relaxed text-gray-200; /* softer than pure white */
 }
 
+/* Paragraphs, lists, and blockquotes spacing */
 .markdown p,
 .markdown ul,
 .markdown ol,
 .markdown blockquote {
-  @apply my-6;
+  @apply my-5;
 }
 
+/* Headings */
 .markdown h2 {
-  @apply text-3xl mt-12 mb-4 leading-snug;
+  @apply text-3xl mt-10 mb-5 font-semibold leading-snug text-gray-100; /* slightly brighter than body */
 }
 
 .markdown h3 {
-  @apply text-2xl mt-8 mb-4 leading-snug;
+  @apply text-2xl mt-8 mb-4 font-semibold leading-snug text-gray-100;
+}
+
+/* Lists */
+.markdown ul,
+.markdown ol {
+  @apply list-inside list-disc;
+}
+
+/* Blockquotes */
+.markdown blockquote {
+  @apply border-l-4 border-gray-600 pl-4 italic text-gray-300 bg-gray-800;
+}
+
+/* Links */
+.markdown a {
+  @apply text-yellow-400 underline hover:text-yellow-300 transition-colors;
+}
+
+/* Inline code */
+.markdown code {
+  @apply bg-gray-700 text-yellow-300 px-1 rounded font-mono text-sm;
+}
+
+/* Code blocks */
+.markdown pre {
+  @apply bg-gray-900 text-gray-200 p-4 rounded overflow-x-auto font-mono text-sm;
+}
+
+/* Images */
+.markdown img {
+  @apply my-6 rounded shadow-lg;
 }
