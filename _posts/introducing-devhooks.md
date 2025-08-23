@@ -31,3 +31,14 @@ Understanding these differences has influenced how I design webhook systems. Wit
 With **Devhooks**, you don’t need to worry about building or managing complex infrastructure for webhooks. The **Devhooks Debugger** lets you inspect and test webhooks without needing tools like ngrok. Meanwhile, **Devhooks Ingest** handles observability, scaling, queues, and retries for you, all in a clean, intuitive dashboard. You can explore it here: [devhooks.live/ingest](https://devhooks.live/ingest).
 
 One of the standout features is **Devhooks Sync**, which turns your webhook events into real-time streams. Using a simple SDK, you can surface these events directly in your apps — for example, in a **Next.js** application. This makes it easy to build real-time experiences, like handling M-Pesa **STK Express** payments, without worrying about the underlying plumbing.
+
+---
+
+## Try Devhooks Today
+
+If you enjoyed this post, you can explore **[Devhooks](https://devhooks.live)** — our free, live beta built right here in Nairobi. Devhooks makes working with webhooks and real-time events simple, reliable, and developer-friendly.
+
+- **Live Beta:** [devhooks.live](https://devhooks.live)
+- **Contact / Feedback:** kitsao@devhooks.live
+
+I’d really appreciate your thoughts and feedback — this is my passion project, built to make developer workflows smoother and more predictable. Your input helps shape Devhooks into a tool that truly serves the community.
