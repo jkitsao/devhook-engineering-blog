@@ -4,9 +4,18 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
 import { ThemeSwitcher } from "./_components/theme-switcher";
-
+import "prism-themes/themes/prism-dracula.css";
 import "./globals.css";
-
+import "prism-themes/themes/prism-dracula.css";
+// import Prism from "prismjs";
+// import { useEffect } from "react";
+// Import commonly used languages explicitly
+// import "prismjs/components/prismjs-typescript";
+// import "prismjs/components/prism-javascript";
+// import "prismjs/components/prism-json";
+// import "prismjs/components/prism-bash";
+// import "prismjs/components/prism-css";
+// import "prismjs/components/prism-markup"; // for HTML
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,6 +32,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // useEffect(() => {
+  //   Prism.highlightAll();
+  // }, []);
   return (
     <html lang="en">
       <head>

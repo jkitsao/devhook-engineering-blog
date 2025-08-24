@@ -125,9 +125,23 @@
 }
 
 /* Enhanced inline code */
-.markdown code {
+/* .markdown code {
   @apply bg-neutral-800 text-pink-400 px-2 py-1 rounded-md font-mono text-sm border border-neutral-700;
   font-size: 0.875em;
+} */
+.markdown pre {
+  padding: 1rem;
+  background: #0d0d0d; /* dark background */
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.6);
+}
+
+.markdown code {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 0.85rem;
 }
 
 /* Enhanced code blocks */

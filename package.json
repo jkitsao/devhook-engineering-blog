@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev ",
     "build": "next build",
     "start": "next start"
   },
@@ -10,10 +10,14 @@
     "date-fns": "^3.6.0",
     "gray-matter": "^4.0.3",
     "next": "15.0.2",
+    "prism-themes": "^1.9.0",
+    "prismjs": "^1.30.0",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "rehype-prism-plus": "^2.0.1",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1"
+    "remark-html": "^16.0.1",
+    "remark-rehype": "^11.1.2"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",

@@ -31,7 +31,7 @@ Imagine a **KenyaBuzz-like** flow:
 
 It looks something like this:
 
-```ts
+```javascript
 // ❌ Don't do this
 const interval = setInterval(async () => {
   const res = await fetch(`/api/mpesa/status?merchantReqId=${merchantReqId}`);
