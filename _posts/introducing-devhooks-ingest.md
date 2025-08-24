@@ -1,6 +1,6 @@
 ---
 title: "Introducing Devhooks 🚀"
-# excerpt: "Test, Debug, and Simulate Webhooks with Ease"
+excerpt: "Test, Debug, and Simulate Webhooks with Ease"
 coverImage: "/assets/blog/dynamic-routing/cover.jpg"
 date: "2025-08-23T05:35:07.322Z"
 author:
