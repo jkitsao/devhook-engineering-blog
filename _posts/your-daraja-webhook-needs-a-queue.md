@@ -1,6 +1,6 @@
 ---
-title: "Your Daraja Webhook Needs a Queue 📨"
-excerpt: "Why your Daraja webhooks fail under load and how queues can save you from dropped events."
+title: "Why Your M-pesa Webhook Needs a Queue System 📨"
+excerpt: "How queues can save you from dropped events."
 coverImage: "/assets/blog/daraja-queue/cover.jpg"
 date: "2025-08-23T13:00:00.000Z"
 author:

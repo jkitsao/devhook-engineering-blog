@@ -1,13 +1,13 @@
 ---
 title: "Make Your M-Pesa STK Push Integrations Reactive⚡"
 excerpt: "How to build a seamless STK Push experience with Daraja webhooks, and sockets."
-coverImage: "/assets/blog/mpesa-stk-reactive/cover.png"
+coverImage: "/assets/blog/mpesa-stk-reactive/cover.jpg"
 date: "2025-08-23T12:15:00.000Z"
 author:
   name: Jackson Kitsao
   picture: "/assets/blog/authors/profile.png"
 ogImage:
-  url: "/assets/blog/mpesa-stk-reactive/cover.png"
+  url: "/assets/blog/mpesa-stk-reactive/cover.jpg"
 ---
 
 Most backend devs new to **Daraja** start by wiring up STK Push payments in the simplest way possible:
