@@ -30,6 +30,7 @@ export default async function Post(props: Params) {
             coverImage={post.coverImage}
             date={post.date}
             author={post.author}
+            excerpt={post.excerpt}
           />
           <PostBody content={content} />
         </article>
@@ -53,11 +54,20 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
   }
 
   const title = `${post.title}`;
+  const description = post.excerpt || ""; // fallback if excerpt is missing
 
   return {
     title,
+    description, // for <meta name="description">
     openGraph: {
       title,
+      description, // adds excerpt to OG meta tags
+      images: [post.ogImage.url],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description, // also used in Twitter cards
       images: [post.ogImage.url],
     },
   };
@@ -70,3 +80,4 @@ export async function generateStaticParams() {
     slug: post.slug,
   }));
 }
+

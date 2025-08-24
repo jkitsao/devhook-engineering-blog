@@ -9,9 +9,10 @@ type Props = {
   coverImage: string;
   date: string;
   author: Author;
+  excerpt: string
 };
 
-export function PostHeader({ title, coverImage, date, author }: Props) {
+export function PostHeader({ title, coverImage, date, author,excerpt }: Props) {
   return (
     <>
       <PostTitle>{title}</PostTitle>
