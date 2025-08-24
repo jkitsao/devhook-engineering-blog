@@ -24,7 +24,7 @@ And this doesn’t just happen online.
 
 ---
 
-### Supermarket POS: The Same Problem 🛒
+### The Same Problem at Naivas... 🛒
 
 If you’ve paid via M-Pesa at a **Naivas** or **Quickmart** checkout, you’ve probably seen this too.  
 You complete the STK payment on your phone, but the cashier keeps **smashing the refresh key** on their POS terminal, waiting for the payment status to update. Sometimes it takes seconds, sometimes minutes, and when the network is slow, it’s even worse.
@@ -74,7 +74,7 @@ Daraja responds with something like this:
 }
 ```
 
-This **does not** mean the payment succeeded --- it just means the STK prompt was sent to the customer.
+This **does not** mean the payment succeeded, it just means the STK prompt was sent to the customer.
 
 #### **The Customer Completes the STK Prompt**
 
