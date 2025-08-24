@@ -108,7 +108,7 @@ Once the payment is processed, Daraja calls your **callback URL** (as you provid
 }
 ```
 
-If you're **polling**, you keep hitting Daraja until this callback data is ready --- which is why users end up smashing refresh buttons.
+If you're **polling**, you keep hitting Daraja until this callback data is ready, which is why users end up smashing refresh buttons.
 
 ### Enter WebSockets: Real-Time Payments 🚀
 
@@ -122,9 +122,9 @@ Here's the better way:
 
 4.  Broadcast the result via **WebSockets** to the frontend or POS terminal.
 
-5.  The UI updates instantly --- no refresh, no polling, no "try again later."
+5.  The UI updates instantly no refresh, no polling, no "try again later."
 
-This is essentially what **Paystack**'s React components already do. You initiate a payment, and as soon as the backend gets the webhook, the SDK **relays the status in real-time** to your app. The UX is buttery smooth --- and imagine that applied to every Kenyan e-commerce site or POS terminal.
+This is essentially what **Paystack**'s React components already do. You initiate a payment, and as soon as the backend gets the webhook, the SDK **relays the status in real-time** to your app. The UX is buttery smooth and imagine that applied to every Kenyan e-commerce site or POS terminal.
 
 ---
 
