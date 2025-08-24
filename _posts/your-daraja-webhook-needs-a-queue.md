@@ -1,5 +1,5 @@
 ---
-title: "Why Your M-pesa Webhook Needs a Queue System 📨"
+title: "Why Your M-Pesa Webhook Needs a Queue System 📨"
 excerpt: "How queues can save you from dropped events."
 coverImage: "/assets/blog/daraja-queue/cover.jpg"
 date: "2025-08-23T13:00:00.000Z"
@@ -12,9 +12,9 @@ ogImage:
 
 ### Tired of dropped M-Pesa webhooks? Let’s talk queues.
 
-If you've ever integrated **Safaricom Daraja** for M-Pesa payments, you probably know the pain:  
+If you've ever integrated **Safaricom Daraja** for M-Pesa payments, you know the pain:  
 transactions succeed, but sometimes… your webhook **never sees them**.  
-Or worse — it sees them **twice**.
+Or worse, it sees them **twice**.
 
 This isn’t your fault. It’s how Daraja works.
 
@@ -24,106 +24,32 @@ This isn’t your fault. It’s how Daraja works.
 
 Daraja sends webhooks **once** to the URL you configured. If your server is slow, busy, or crashes at the wrong moment, that callback is **lost forever**.
 
-But here’s the twist: sometimes Daraja **retries** — and now your API processes the **same payment twice**. Without protection, you’re stuck debugging ghost transactions.
+But here’s the kicker: sometimes Daraja **retries** and now your API processes the **same payment twice**. Without protection, you’re left debugging ghost transactions and reconciling duplicate entries.
 
 ---
 
 ## The fix: introduce a queue
 
-Instead of doing **everything** inside the webhook handler, the smarter approach is:
+Instead of cramming **all your payment logic** inside the webhook handler, here’s the smarter way:
 
-1. **Receive** the webhook event quickly.
+1. **Receive** the webhook event.
 2. **Push** it into a **queue**.
-3. **Acknowledge** Daraja immediately (fast response).
-4. **Process** the event in the background, safely and reliably.
+3. **Acknowledge** Daraja instantly.
+4. **Process** the event in the background safely and reliably.
 
-This pattern solves two problems:
+This pattern solves two key problems:
 
-- ✅ Prevents dropped webhooks
-- ✅ Handles retries gracefully
+- ✅ **Prevents dropped webhooks** — you respond fast, even if processing is heavy.
+- ✅ **Handles retries gracefully** — idempotency checks make duplicate requests harmless.
 
 ---
 
-## Using BullMQ with Node.js 🐂
+<!-- ## Using BullMQ with Node.js 🐂
 
-Let’s use [BullMQ](https://docs.bullmq.io/) — a fast and reliable Redis-based queue — to make our webhook integration bulletproof.
+Let’s set up [BullMQ](https://docs.bullmq.io/) — a reliable Redis-based queue — to make your webhook integration bulletproof.
 
 ### 1. Install dependencies
 
 ```bash
 npm install bullmq ioredis express
-```
-
-```js
-
-// queues/paymentQueue.ts
-import { Queue } from "bullmq";
-import IORedis from "ioredis";
-
-const connection = new IORedis(process.env.REDIS_URL!);
-
-export const paymentQueue = new Queue("payment-queue", { connection });
-
-```
-
-```js
-// routes/daraja-webhook.ts
-import express from "express";
-import { paymentQueue } from "../queues/paymentQueue";
-
-const router = express.Router();
-
-router.post("/daraja/webhook", async (req, res) => {
-  try {
-    // Push webhook payload into the queue
-    await paymentQueue.add("process-payment", req.body);
-
-    // Always respond quickly to Daraja
-    res.status(200).json({ status: "ok" });
-  } catch (err) {
-    console.error("Failed to enqueue webhook:", err);
-    res.status(500).json({ status: "error" });
-  }
-});
-
-export default router;
-```
-
-```js
-
-// workers/paymentWorker.ts
-import { Worker } from "bullmq";
-import IORedis from "ioredis";
-
-const connection = new IORedis(process.env.REDIS_URL!);
-
-const worker = new Worker(
-  "payment-queue",
-  async job => {
-    const payload = job.data;
-
-    console.log("Processing payment:", payload);
-
-    // 💡 Example: idempotency check
-    const existing = await checkIfProcessed(payload.TransactionID);
-    if (existing) {
-      console.log("Duplicate transaction skipped:", payload.TransactionID);
-      return;
-    }
-
-    await savePaymentToDB(payload);
-    await sendReceiptSMS(payload);
-  },
-  { connection }
-);
-
-worker.on("completed", job => {
-  console.log(`Payment ${job.id} processed ✅`);
-});
-
-worker.on("failed", (job, err) => {
-  console.error(`Payment ${job?.id} failed ❌`, err);
-});
-
-
-```
+``` -->
