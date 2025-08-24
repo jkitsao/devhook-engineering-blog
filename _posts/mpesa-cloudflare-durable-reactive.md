@@ -89,7 +89,7 @@ If you're new to Durable Objects or want to understand the foundations, check th
 - [Wrangler CLI; start building with ease](https://developers.cloudflare.com/workers/wrangler/)
 - [Cloudflare Durable Objects examples on GitHub](https://github.com/cloudflare/workers-sdk/tree/main/examples)
 - [🎥 Intro to Durable Objects (YouTube)](https://www.youtube.com/watch?v=qF2PuYnBahw&pp=ygUQZHVyYWJsZSBvYmplY3RzIA%3D%3D) - a clear, beginner-friendly overview
-- [🎥 How Durable Objects and D1 Work: A Deep Dive with Cloudflare’s Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) - Josh Howard, Senior Engineering Manager at Cloudflare, explains how Durable Objects (and D1) actually work under the hood :contentReference[oaicite:0]{index=0}
+- [🎥 How Durable Objects and D1 Work: A Deep Dive with Cloudflare’s Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) - Josh Howard, Senior Engineering Manager at Cloudflare, explains how Durable Objects (and D1) actually work under the hood.
 
 Once you're familiar with the basics, let's jump into building our actual payment tracking solution.
 
@@ -244,7 +244,7 @@ export class PaymentSession {
 
 Before we write any Frontent code code, let’s take a moment to understand **what WebSockets are** and why they’re useful here.
 
-Normally, web apps use **HTTP requests** which are **one-way**: the client asks, the server responds, and that’s it. If you need continuous updates (like tracking a payment), the client would have to keep **polling** the server over and over — which is wasteful and slow.
+Normally, web apps use **HTTP requests** which are **one-way**: the client asks, the server responds, and that’s it. If you need continuous updates (like tracking a payment), the client would have to keep **polling** the server over and over which is wasteful and slow.
 
 **WebSockets change that.**  
 They open up a **persistent two-way connection** between the client and server. Once connected:
