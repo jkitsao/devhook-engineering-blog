@@ -1,5 +1,5 @@
 ---
-title: "Make Your M-Pesa STK Push connection Reactive ⚡"
+title: "Make Your M-Pesa STK Push Integrations Reactive⚡"
 excerpt: "How to build a seamless STK Push experience with Daraja webhooks, and sockets."
 coverImage: "/assets/blog/mpesa-stk-reactive/cover.png"
 date: "2025-08-23T12:15:00.000Z"
