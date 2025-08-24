@@ -16,15 +16,15 @@ I’m building **Devhooks**, a simpler, smarter way to work with webhooks and re
 
 Over the past few years, I’ve worked on multiple projects where webhooks played a huge role, from payments and notifications to integrations with third-party APIs. Debugging and testing them, however, has always been… painful.
 
-I’ve been immersed in projects where event-driven systems were at the heart of operations. At **MyMovies.Africa**, I built a video encoding pipeline and a custom webhook system to emit real-time events about encoding jobs. Later, at **Old Mutual**, I managed dozens of webhook integrations powering M-Pesa paybills and other payment workflows. Today, as a consultant, I work on microfinance integrations with **Apache Fineract**, where events and webhooks are once again central to connecting systems seamlessly.
+I’ve kind of found myself working around event-driven systems for most of my career without really planning it. At [MyMovies.Africa](https://mymovies.africa), I built a video encoding pipeline and hacked together a webhook system so we could push out real-time updates on encoding jobs. Later, at [Old Mutual](https://www.oldmutual.co.ke), I was deep into M-Pesa integrations, wiring up paybills and all sorts of payment workflows using webhooks. These days, I’m consulting on microfinance integrations with Apache Fineract and somehow, I’m back where I started—building around events and webhooks again.
 
-### Comparing Daraja and Stripe
+### What Stripe Gets That Daraja Misses
 
-Working with webhooks in Kenya naturally brings Daraja into the conversation. Daraja, M-Pesa’s API platform, provides webhook notifications for transactions, which are essential for real-time updates in payment workflows. It covers the basics well but has some limitations compared to platforms like Stripe.
+If you’ve ever worked with payments in Kenya, Daraja almost always shows up. It gets the job done; you get your webhook notifications when a transaction happens, but it feels pretty barebones. There’s no easy way to see what’s happening, no detailed logs, and if something breaks, you’re mostly on your own. I’ve spent hours digging through random payloads just trying to figure out what went wrong.
 
-Stripe, on the other hand, treats webhooks as a first-class feature. It provides a robust dashboard, detailed event logs, automatic retries, and rich event types covering payments, subscriptions, and refunds. These features make it easier for developers to debug, test, and manage webhooks without building additional tooling.
+Stripe, on the other hand, spoils you. Webhooks are a first-class feature there. You get dashboards, retries, detailed event types, even a timeline of everything that happened. Debugging is almost fun.
 
-Understanding these differences has influenced how I design webhook systems. With Devhooks, the goal is to combine the simplicity of Daraja with the observability and reliability features found in platforms like Stripe, making webhook integrations smoother and more predictable for developers everywhere.
+That gap has been a big influence on how I think about Devhooks. I want it to have the simplicity of Daraja, quick to set up with no extra fluff, but also the reliability and observability that Stripe nails. Something that makes working with webhooks less painful and way more predictable for developers here.
 
 ### Devhooks in Action
 
