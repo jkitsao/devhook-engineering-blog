@@ -268,25 +268,31 @@ So the idea is simple:
 With that foundation in mind, let’s move on to the code. 🚀
 
 ```javascript
-// Client-side code
-class ReactivePaymentClient {
-  constructor(customerId) {
-    this.customerId = customerId;
-    this.ws = null;
-  }
+import React, { useState, useEffect, useRef } from "react";
 
-  async initiatePayment(phoneNumber, amount) {
-    // Create WebSocket connection to the customer's Durable Object
-    const wsUrl = `wss://your-worker.your-subdomain.workers.dev/sessions/${this.customerId}/websocket`;
-    this.ws = new WebSocket(wsUrl);
+// Component for handling M-Pesa payments
+export default function MpesaPayment({ customerId }) {
+  const [statusMessage, setStatusMessage] = useState("");
 
-    this.ws.onmessage = (event) => {
+  const [paymentResponse, setPaymentResponse] = useState(null);
+
+  // WebSocket instance (persistent across renders)
+  const wsRef = useRef(null);
+
+  //  Initiate payment
+  const initiatePayment = async (phoneNumber, amount) => {
+    // Create a WebSocket connection to the customer's Durable Object
+    const wsUrl = `wss://your-worker.your-subdomain.workers.dev/sessions/${customerId}/websocket`;
+    wsRef.current = new WebSocket(wsUrl);
+
+    // Listen for messages from the server
+    wsRef.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      this.handlePaymentUpdate(message);
+      handlePaymentUpdate(message);
     };
 
-    // Initiate the STK push
-    const response = await fetch(`/sessions/${this.customerId}/initiate`, {
+    // Send POST request to initiate the STK push
+    const response = await fetch(`/sessions/${customerId}/initiate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -296,46 +302,73 @@ class ReactivePaymentClient {
       }),
     });
 
-    return response.json();
-  }
+    const data = await response.json();
+    setPaymentResponse(data);
+    return data;
+  };
 
-  handlePaymentUpdate(message) {
+  // Handle payment updates coming from WebSocket
+  const handlePaymentUpdate = (message) => {
     switch (message.type) {
       case "STK_INITIATED":
-        this.showPendingState(message.data);
+        showPendingState(message.data);
         break;
       case "PAYMENT_COMPLETED":
         if (message.data.status === "SUCCESS") {
-          this.showSuccessState(message.data);
+          showSuccessState(message.data);
         } else {
-          this.showFailureState(message.data);
+          showFailureState(message.data);
         }
-        this.ws.close();
+        // Close the WebSocket after completion
+        wsRef.current?.close();
         break;
+      default:
+        console.warn("Unknown message type:", message.type);
     }
-  }
+  };
 
-  showPendingState(data) {
-    document.getElementById("payment-status").innerHTML = `
-      <div class="loading">
-        📱 Check your phone for M-Pesa prompt...
-        <div class="spinner"></div>
-      </div>
-    `;
-  }
+  // pending payment state
+  const showPendingState = (data) => {
+    setStatusMessage(`📱 Check your phone for M-Pesa prompt...`);
+  };
 
-  showSuccessState(data) {
-    document.getElementById("payment-status").innerHTML = `
-      <div class="success">
-        ✅ Payment successful!<br>
-        Receipt: ${data.mpesaReceiptNumber}
+  // successful payment state
+  const showSuccessState = (data) => {
+    setStatusMessage(
+      `✅ Payment successful! Receipt: ${data.mpesaReceiptNumber}`
+    );
+  };
+
+  // failed payment state
+  const showFailureState = (data) => {
+    setStatusMessage(`❌ Payment failed. Reason: ${data.reason || "Unknown"}`);
+  };
+
+  // Cleanup WebSocket on unmount
+  useEffect(() => {
+    return () => {
+      wsRef.current?.close();
+    };
+  }, []);
+
+  return (
+    <div>
+      <h2>M-Pesa Payment</h2>
+      <button onClick={() => initiatePayment("254712345678", 100)}>
+        Pay 100 KES
+      </button>
+      <div id="payment-status" style={{ marginTop: "1em" }}>
+        {statusMessage}
       </div>
-    `;
-  }
+      {paymentResponse && <pre>{JSON.stringify(paymentResponse, null, 2)}</pre>}
+    </div>
+  );
 }
 ```
 
 ### Worker Routing
+
+This Cloudflare Worker acts as a proxy for customer-specific Durable Objects. It parses the URL to extract a customerId and forwards the request to that customer’s Durable Object instance.
 
 ```typescript
 // worker.ts
