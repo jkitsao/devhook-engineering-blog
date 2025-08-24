@@ -130,20 +130,6 @@ This is essentially what **Paystack**'s React components already do. You initiat
 
 ### Why This Matters for STK Push
 
-For users, waiting in the dark after paying sucks.\
-For cashiers, smashing refresh keys feels broken.\
-For developers, polling APIs feels like a hack.
-
-By making STK Push integrations **reactive**, you:
-
-- **Improve UX** → real-time updates without refreshing.
-
-- **Reduce server load** → no need to keep polling Daraja.
-
-- **Make the system more reliable** → your UI reflects the true webhook state.
-
-### Why This Matters for STK Push
-
 For users, waiting in the dark after paying sucks.  
 For cashiers, smashing refresh keys feels broken.  
 For developers, polling APIs feels like a hack.
