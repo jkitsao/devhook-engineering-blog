@@ -15,6 +15,7 @@
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
     "rehype-prism-plus": "^2.0.1",
+    "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
     "remark-rehype": "^11.1.2"
