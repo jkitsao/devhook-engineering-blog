@@ -95,6 +95,15 @@ Once you're familiar with the basics, let's jump into building our actual paymen
 
 ### Create the Payment Durable Object
 
+This Durable Object manages a **single payment session** from start to finish.  
+It handles three things:
+
+- **WebSocket connections** for real-time status updates.
+- **STK push initiation** to start an M-Pesa payment.
+- **Webhook handling** to process Daraja callbacks and instantly notify the client.
+
+It combines storage, WebSockets, and API endpoints in one isolated session.
+
 ```typescript
 export class PaymentSession {
   private webSocket: WebSocket | null = null;
