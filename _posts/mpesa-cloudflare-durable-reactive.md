@@ -12,7 +12,7 @@ ogImage:
 
 <!-- https://blog.devhooks.live/posts/reactive-mpesa-stk-webhooks -->
 
-Remember that frustrating refresh-button dance I mentioned with the KenyaBuzz payment [**post**](https://blog.devhooks.live/posts/reactive-mpesa-stk-webhooks)? Well, there's a **much better way** to handle M-Pesa STK Push callbacks without making your users wait in limbo.
+Remember that frustrating refresh-button dance I mentioned with the KenyaBuzz payment? [Find it here](https://blog.devhooks.live/posts/reactive-mpesa-stk-webhooks). Well, there's a **much better way** to handle M-Pesa STK Push callbacks without making your users wait in limbo.
 
 Enter **Cloudflare Durable Objects** + **WebSockets**. This combo lets you build truly reactive payment flows that update instantly when M-Pesa hits your webhook.
 
@@ -54,7 +54,9 @@ Before diving into the solution, let's quickly understand what makes Durable Obj
 
 Think of them as **mini-servers** that automatically scale and migrate based on usage patterns. Perfect for our payment tracking use case where we need to maintain state between the STK initiation and the webhook callback.
 
-> 📚 **Learn More**: Check out the [Durable Objects documentation](https://developers.cloudflare.com/durable-objects/) and this excellent [introductory blog post](https://blog.cloudflare.com/introducing-durable-objects/) from Cloudflare.
+What really blows my mind (and Josh Howard, Senior Engineering Manager at Cloudflare, explains this beautifully) is that Durable Objects are designed to **scale out to billions**, you can literally have one per customer. And since they can **move closer to the customer** and handle requests individually, the model is insanely powerful. This isn’t just theory it’s a whole new way of thinking about distributed systems. Honestly, I really love what Cloudflare is doing here ❤️.
+
+> 📚 **Learn More**: Check out the [Durable Objects documentation](https://developers.cloudflare.com/durable-objects/), this excellent [introductory blog post](https://blog.cloudflare.com/introducing-durable-objects/) from Cloudflare, and [this talk by Josh Howard (Senior Engineering Manager at Cloudflare)](https://www.youtube.com/watch?v=C5-741uQPVU) where he breaks it down.
 
 ## The Durable Objects Solution
 
@@ -74,9 +76,24 @@ Here's the architecture:
                                     └──────────────────┘
 ```
 
-## Implementation
+## Let’s Build It Together
 
-### 1. Create the Payment Durable Object
+Before we dive into code, here’s some helpful context to get you started:
+
+Cloudflare provides the **Wrangler CLI** to manage and deploy Durable Objects quickly, and their official documentation and GitHub examples make spinning one up a breeze.
+
+This guide isn’t a **Durable Objects 101** instead, it’s laser-focused on how to solve a specific use case: **reliably tracking payments between the STK initiation and the webhook callback**.
+
+If you're new to Durable Objects or want to understand the foundations, check these out:
+
+- [Wrangler CLI; start building with ease](https://developers.cloudflare.com/workers/wrangler/)
+- [Cloudflare Durable Objects examples on GitHub](https://github.com/cloudflare/workers-sdk/tree/main/examples)
+- [🎥 Intro to Durable Objects (YouTube)](https://www.youtube.com/watch?v=qF2PuYnBahw&pp=ygUQZHVyYWJsZSBvYmplY3RzIA%3D%3D) - a clear, beginner-friendly overview
+- [🎥 How Durable Objects and D1 Work: A Deep Dive with Cloudflare’s Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) - Josh Howard, Senior Engineering Manager at Cloudflare, explains how Durable Objects (and D1) actually work under the hood :contentReference[oaicite:0]{index=0}
+
+Once you're familiar with the basics, let's jump into building our actual payment tracking solution.
+
+### Create the Payment Durable Object
 
 ```typescript
 export class PaymentSession {
@@ -223,7 +240,32 @@ export class PaymentSession {
 }
 ```
 
-### Frontend Implementation
+## A Quick WebSockets 101
+
+Before we write any Frontent code code, let’s take a moment to understand **what WebSockets are** and why they’re useful here.
+
+Normally, web apps use **HTTP requests** which are **one-way**: the client asks, the server responds, and that’s it. If you need continuous updates (like tracking a payment), the client would have to keep **polling** the server over and over — which is wasteful and slow.
+
+**WebSockets change that.**  
+They open up a **persistent two-way connection** between the client and server. Once connected:
+
+- The **client** can send events anytime.
+- The **server** can push messages back instantly (no polling required).
+
+That makes them perfect for real-time experiences like:
+
+- Chat apps 💬
+- Live dashboards 📊
+- Multiplayer games 🎮
+- …and in our case, **payment status tracking** ⚡
+
+So the idea is simple:
+
+1. The client connects to a WebSocket.
+2. Our Durable Object keeps track of that connection.
+3. When the webhook callback arrives, the Durable Object immediately pushes the update back to the waiting client.
+
+With that foundation in mind, let’s move on to the code. 🚀
 
 ```javascript
 // Client-side code
