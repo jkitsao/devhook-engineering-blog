@@ -16,7 +16,7 @@ I've been wrestling with M-Pesa STK Push webhooks for a while now. The usual pat
 
 **Devhooks Sync** ingests webhooks on your behalf and converts each payload into a live event stream your frontend can subscribe to. No more polling loops or refresh buttons. Payment confirmations happen in real-time.
 
-If you want to understand the technical implementation details, I documented the [DIY approach using Cloudflare Durable Objects here](https://blog.devhooks.live/posts/mpesa-cloudflare-durable-reactive). But I got tired of rebuilding this infrastructure for every project, so I packaged it into something reusable.
+If you want to understand the technical implementation details, I documented the [DIY approach using Cloudflare Durable Objects here](https://blog.devhooks.live/posts/mpesa-cloudflare-durable-reactive-stk). But I got tired of rebuilding this infrastructure for every project, so I packaged it into something reusable.
 
 ![Devhooks Dashboard Webhook Setup](/assets/blog/devhooks-sync-mpesa/hook-sync.jpg)
 
