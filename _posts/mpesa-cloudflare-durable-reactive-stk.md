@@ -44,7 +44,7 @@ This approach has serious issues:
 
 Before diving into the solution, let's quickly understand what makes Durable Objects special.
 
-**Durable Objects** are Cloudflare’s stateful serverless solution. They let you store and manage data **right next to your compute**, unlike traditional serverless functions which are stateless and ephemeral.
+**Durable Objects** are Cloudflare’s stateful serverless solution. They let you store and manage data **right next to your compute**, unlike traditional serverless functions which are stateless and ephemeral(Brief).
 
 Durable Objects give you a single, consistent instance of your data anywhere in the world. Your state is persistent, surviving between requests, and you can even keep long-lived connections like WebSockets open. Cloudflare automatically moves your objects closer to where they’re being used, and you never have to worry about eventual consistency, reads always reflect the latest writes.
 
@@ -87,7 +87,7 @@ If you're new to Durable Objects or want to understand the foundations, check th
 - [🎥 Intro to Durable Objects (YouTube)](https://www.youtube.com/watch?v=qF2PuYnBahw&pp=ygUQZHVyYWJsZSBvYmplY3RzIA%3D%3D) - a clear, beginner-friendly overview
 - [🎥 How Durable Objects and D1 Work: A Deep Dive with Cloudflare’s Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) - Josh Howard, Senior Engineering Manager at Cloudflare, explains how Durable Objects (and D1) actually work under the hood.
 
-Once you're familiar with the basics, let's jump into building our actual payment tracking solution.
+Once you're familiar with the basics, We can jump into building our actual payment tracking solution.
 
 ### Create the Payment Durable Object
 
@@ -98,7 +98,7 @@ It handles three things:
 - **STK push initiation** to start an M-Pesa payment.
 - **Webhook handling** to process Daraja callbacks and instantly notify the client.
 
-It combines storage, WebSockets, and API endpoints in one isolated session.
+It combines storage, WebSockets, and API endpoints in one isolated session for every customer.
 
 ```typescript
 export class PaymentSession {
@@ -245,32 +245,17 @@ export class PaymentSession {
 }
 ```
 
-## A Quick WebSockets 101
+## Preparing for WebSockets in the Frontend
 
-Before we write any Frontent code code, let’s take a moment to understand **what WebSockets are** and why they’re useful here.
+Before we dive into the frontend code, let's run through what WebSockets do and why they matter. Unlike regular HTTP requests, which are one-way and short-lived, WebSockets create a **persistent two-way connection** between the client and server. This lets the server push updates instantly, which is perfect for real-time use cases like chat, multiplayer games, or tracking payment status.
 
-Normally, web apps use **HTTP requests** which are **one-way**: the client asks, the server responds, and that’s it. If you need continuous updates (like tracking a payment), the client would have to keep **polling** the server over and over which is wasteful and slow.
-
-**WebSockets change that.**  
-They open up a **persistent two-way connection** between the client and server. Once connected:
-
-- The **client** can send events anytime.
-- The **server** can push messages back instantly (no polling required).
-
-That makes them perfect for real-time experiences like:
-
-- Chat apps 💬
-<!-- - Live dashboards 📊 -->
-- Multiplayer games 🎮
-- …and in our case, **payment status tracking** ⚡
-
-So the idea is simple:
+The flow is simple:
 
 1. The client connects to a WebSocket.
-2. Our Durable Object keeps track of that connection.
-3. When the webhook callback arrives, the Durable Object immediately pushes the update back to the waiting client.
+2. A Durable Object keeps track of the connection.
+3. When an event occurs (like a payment update), the Durable Object immediately sends the update to the client.
 
-With that foundation in mind, let’s move on to the code. 🚀
+For more background, see [MDN WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) and [MDN HTTP vs WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers).
 
 ```javascript
 import React, { useState, useEffect, useRef } from "react";
