@@ -18,7 +18,7 @@ I've been wrestling with M-Pesa STK Push webhooks for a while now. The usual pat
 
 If you want to understand the technical implementation details, I documented the [DIY approach using Cloudflare Durable Objects here](https://blog.devhooks.live/posts/mpesa-cloudflare-durable-reactive). But I got tired of rebuilding this infrastructure for every project, so I packaged it into something reusable.
 
-![Devhooks Dashboard Webhook Setup](/assets/blog/devhooks-sync-mpesa/flow.jpg)
+![Devhooks Dashboard Webhook Setup](/assets/blog/devhooks-sync-mpesa/hook-sync.jpg)
 
 ## The M-Pesa Async Problem
 
@@ -38,13 +38,13 @@ The architecture is straightforward:
 
 It's essentially giving your frontend a direct line to M-Pesa's webhook events, without the infrastructure headaches.
 
-![Real-Time Payment Update on Frontend](/assets/blog/devhooks-sync-mpesa/sync.png)
+![Real-Time Payment Update on Frontend](/assets/blog/devhooks-sync-mpesa/flow.jpg)
 
 ## Implementation: Frontend Integration
 
 The client-side integration is deliberately minimal. I built the `@jkitsao/echo` client to handle authentication, reconnection, and message parsing automatically:
 
-![Devhooks Sync Frontend Connection](/assets/blog/devhooks-sync-mpesa/frontend-connection.jpeg)
+![Devhooks Sync Frontend Connection](/assets/blog/devhooks-sync-mpesa/sync.png)
 
 ```javascript
 "use client";
@@ -114,12 +114,14 @@ Authentication uses short-lived tokens that auto-refresh, and the client handles
 
 The setup is minimal if you want to try this approach:
 
-1. **[Grab an account](https://devhooks.live)** (free tier handles 5k events/day)
+1. **[Grab an account](https://devhooks.live)** (free tier handles upto 5k events/day)
 2. **Install the client:** `npm install @jkitsao/echo`
-3. **[Follow the integration guide](https://docs.devhooks.live/quickstart/mpesa)**
-<!-- 
-The [GitHub examples repo](https://github.com/devhooks-live/examples) has working implementations for Next.js, React, and vanilla JavaScript if you want to see the full flow.
+   <!-- 3. **[Follow the integration guide](https://docs.devhooks.live/quickstart/mpesa)** -->
+   <!--
+   The [GitHub examples repo](https://github.com/devhooks-live/examples) has working implementations for Next.js, React, and vanilla JavaScript if you want to see the full flow.
 
-**[Documentation](https://docs.devhooks.live)** | **[Examples](https://github.com/devhooks-live/examples)** | **[Discord](https://discord.gg/devhooks)** -->
+   -->
+
+<!-- **[Documentation](https://docs.devhooks.live)** | **[Examples](https://github.com/devhooks-live/examples)** | **[Discord](https://discord.gg/devhooks)** -->
 
 Turning webhooks into reactive streams eliminates a whole class of polling-related problems. If you're dealing with M-Pesa integration headaches, this approach might save you some time.

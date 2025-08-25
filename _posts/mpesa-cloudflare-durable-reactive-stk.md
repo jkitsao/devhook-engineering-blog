@@ -83,7 +83,7 @@ This guide isn’t a **Durable Objects 101** instead, it’s laser-focused on ho
 If you're new to Durable Objects or want to understand the foundations, check these out:
 
 - [Wrangler CLI; start building with ease](https://developers.cloudflare.com/workers/wrangler/)
-- [Cloudflare Durable Objects examples on GitHub](https://github.com/cloudflare/workers-sdk/tree/main/examples)
+- [Cloudflare Durable Objects examples](https://developers.cloudflare.com/durable-objects/examples/)
 - [🎥 Intro to Durable Objects (YouTube)](https://www.youtube.com/watch?v=qF2PuYnBahw&pp=ygUQZHVyYWJsZSBvYmplY3RzIA%3D%3D) - a clear, beginner-friendly overview
 - [🎥 How Durable Objects and D1 Work: A Deep Dive with Cloudflare’s Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) - Josh Howard, Senior Engineering Manager at Cloudflare, explains how Durable Objects (and D1) actually work under the hood.
 
