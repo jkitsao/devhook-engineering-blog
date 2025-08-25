@@ -1,5 +1,5 @@
 ---
-title: "Real-time M-Pesa STK Push with Cloudflare Durable Objects 🌩️"
+title: "Instant M-Pesa STK Updates with Cloudflare Durable Objects 🌩️"
 excerpt: "Ditch the polling madness. Use Durable Objects and WebSockets to create truly reactive M-Pesa integrations that update instantly."
 coverImage: "/assets/blog/mpesa-cloudflare-reactive/cover.jpeg"
 date: "2025-08-24T14:30:00.000Z"
