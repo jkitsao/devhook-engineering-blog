@@ -39,8 +39,8 @@ Instead of cramming **all your payment logic** inside the webhook handler, here�
 
 This pattern solves two key problems:
 
-- ✅ **Prevents dropped webhooks** — you respond fast, even if processing is heavy.
-- ✅ **Handles retries gracefully** — idempotency checks make duplicate requests harmless.
+- ✅ **Prevents dropped webhooks** —> you respond fast, even if processing is heavy.
+- ✅ **Handles retries gracefully** —> idempotency checks make duplicate requests harmless.
 
 ---
 

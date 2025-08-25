@@ -44,13 +44,9 @@ This approach has serious issues:
 
 Before diving into the solution, let's quickly understand what makes Durable Objects special.
 
-**Durable Objects** are Cloudflare's answer to stateful serverless computing. Unlike traditional serverless functions that are stateless and ephemeral, Durable Objects provide:
+**Durable Objects** are Cloudflare’s stateful serverless solution. They let you store and manage data **right next to your compute**, unlike traditional serverless functions which are stateless and ephemeral.
 
-- **Global Consistency**: Each object instance exists in exactly one location worldwide at any given time
-- **Persistent State**: Built-in storage that survives between requests
-- **WebSocket Support**: Can maintain long-lived connections
-- **Automatic Migration**: Cloudflare moves objects closer to where they're being used
-- **Strong Consistency**: No eventual consistency issues - reads after writes are guaranteed
+Durable Objects give you a single, consistent instance of your data anywhere in the world. Your state is persistent, surviving between requests, and you can even keep long-lived connections like WebSockets open. Cloudflare automatically moves your objects closer to where they’re being used, and you never have to worry about eventual consistency, reads always reflect the latest writes.
 
 Think of them as **mini-servers** that automatically scale and migrate based on usage patterns. Perfect for our payment tracking use case where we need to maintain state between the STK initiation and the webhook callback.
 
@@ -264,7 +260,7 @@ They open up a **persistent two-way connection** between the client and server. 
 That makes them perfect for real-time experiences like:
 
 - Chat apps 💬
-- Live dashboards 📊
+<!-- - Live dashboards 📊 -->
 - Multiplayer games 🎮
 - …and in our case, **payment status tracking** ⚡
 
@@ -437,15 +433,7 @@ Instead of your users sitting there wondering "Did my payment work? Should I try
 
 It's like the difference between sending a letter and waiting weeks for a reply versus having a real-time phone conversation.
 
-## Why This Approach Rocks
-
-**🚀 Instant Updates**: WebSocket connection means zero-latency payment status updates  
-**💰 Cost Effective**: No continuous polling = fewer compute resources  
-**🌍 Globally Consistent**: Durable Objects ensure the webhook always reaches the right instance  
-**🔄 Automatic Cleanup**: Objects can be configured to clean up after payment completion  
-**📈 Scalable**: Each customer gets their own isolated object instance
-
-## The User Experience
+## The New User Experience
 
 With this setup, your payment flow becomes:
 

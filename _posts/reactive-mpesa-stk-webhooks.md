@@ -120,16 +120,6 @@ Here's the better way:
 4.  Broadcast the result via **WebSockets** to the frontend or POS terminal.
 5.  The UI updates instantly — no refresh, no polling, no "try again later."
 
-### Enter WebSockets: Real-Time Payments 🚀
-
-Here's the better way:
-
-1.  When you initiate the STK Push, **store the `MerchantRequestID`** from Daraja.
-2.  The backend listens for Daraja's **callback webhook**.
-3.  When the webhook arrives, **match the `MerchantRequestID`** to the one stored.
-4.  Broadcast the result via **WebSockets** to the frontend or POS terminal.
-5.  The UI updates instantly — no refresh, no polling, no "try again later."
-
 I've written about two solid implementations for this:
 
 - **Using [Devhooks Sync](https://devhooks.live/docs/sync)**: Devhooks provides a **built-in WebSocket sync feature** that lets your app **subscribe to webhook events** in real-time without writing extra infra. As soon as Daraja sends a callback, your frontend gets the update instantly. _(link for docs)_
