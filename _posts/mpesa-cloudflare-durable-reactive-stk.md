@@ -417,7 +417,7 @@ Here’s what this code actually accomplishes in simple terms:
 
 Instead of users sitting there wondering "Did my payment go through? Should I try again?", they get immediate feedback. No more double payments, no more abandoned transactions, no more frustrated customers.
 
-It’s like the difference between sending a courier with a letter and waiting a week versus chatting directly on WhatsApp — instant, real-time, and reliable.
+It’s like the difference between sending a courier with a letter and waiting a week versus chatting directly on WhatsApp; instant, real-time, and reliable.
 
 ## The New User Experience
 
