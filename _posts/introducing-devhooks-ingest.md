@@ -10,39 +10,72 @@ ogImage:
   url: "/assets/blog/dynamic-routing/cover.jpg"
 ---
 
-### Hey, I’m Kitsao 👋
+## Building Better Webhook Infrastructure
 
-I’m building [Devhooks.live](https://www.devhooks.live), a simpler, smarter way to work with webhooks and real-time events.
+I'm Jackson, and I've been building [Devhooks.live](https://www.devhooks.live) to solve webhook problems I kept running into across different projects.
 
-Over the past few years, I’ve worked on multiple projects where webhooks played a huge role, from payments and notifications to integrations with third-party APIs. Debugging and testing them, however, has always been… painful.
+Over the past few years, I've found myself dealing with event-driven architectures more often than I initially planned. At [MyMovies.Africa](https://mymovies.africa), I needed real-time updates for video encoding jobs and ended up hacking together a webhook system. Later, working with [Old Mutual](https://www.oldmutual.co.ke), I was deep in M-Pesa integrations paybills, STK push callbacks, the usual payment workflow stuff. These days, I'm consulting on microfinance systems with Apache Fineract, and somehow I'm back to building around events and webhooks again.
 
-I’ve kind of found myself working around event-driven systems for most of my career without really planning it. At [MyMovies.Africa](https://mymovies.africa), I built a video encoding pipeline and hacked together a webhook system so we could push out real-time updates on encoding jobs. Later, at [Old Mutual](https://www.oldmutual.co.ke), I was deep into M-Pesa integrations, wiring up paybills and all sorts of payment workflows using webhooks. These days, I’m consulting on microfinance integrations with Apache Fineract and somehow, I’m back where I started—building around events and webhooks again.
+The pattern became clear: webhooks are everywhere, but the tooling around them is inconsistent and often frustrating.
 
-### What Stripe Gets That Daraja Misses
+## The Developer Experience Gap
 
-If you’ve ever worked with payments in Kenya, Daraja almost always shows up. It gets the job done; you get your webhook notifications when a transaction happens, but it feels pretty barebones. There’s no easy way to see what’s happening, no detailed logs, and if something breaks, you’re mostly on your own. I’ve spent hours digging through random payloads just trying to figure out what went wrong.
+Working with Daraja (M-Pesa's API) versus something like Stripe highlights this perfectly. Daraja works you get webhook notifications when transactions happen but the developer experience is pretty bare-bones. No request logs, minimal error details, and when something breaks, you're mostly debugging in the dark with cryptic JSON payloads.
 
-Stripe, on the other hand, spoils you. Webhooks are a first-class feature there. You get dashboards, retries, detailed event types, even a timeline of everything that happened. Debugging is almost fun.
+Stripe spoils you in comparison. Their webhook implementation treats observability as a first-class concern: detailed dashboards, automatic retries, comprehensive event types, request/response logging. Debugging becomes straightforward instead of guesswork.
 
-That gap has been a big influence on how I think about Devhooks. I want it to have the simplicity of Daraja, quick to set up with no extra fluff, but also the reliability and observability that Stripe nails. Something that makes working with webhooks less painful and way more predictable for developers here.
+I wanted to bridge that gap keep the simplicity of getting started quickly, but add the reliability and visibility that makes webhook debugging actually manageable.
 
-### Devhooks in Action
+## What I Built
 
-That’s why I built **Devhooks**, to solve the exact problems I kept running into when working with webhooks.
+**Devhooks** addresses the specific pain points I kept hitting:
 
-With **Devhooks**, you don’t need to worry about building or managing complex infrastructure for webhooks. The **[Devhooks Debugger](https://www.devhooks.live/new-hook)** lets you inspect and test webhooks without needing tools like ngrok. Meanwhile, **Devhooks Ingest** handles observability, scaling, queues, and retries for you, and also powers **Devhooks Sync**, which turns your webhook events into real-time streams, all in a clean, intuitive dashboard. You can explore it here: [devhooks.live/ingest](https://devhooks.live/ingest).
+**[Devhooks Debugger](https://www.devhooks.live/new-hook)** eliminates the ngrok dance when testing webhooks locally. You get a public URL that forwards to your local development server, with request inspection built in.
 
-Using a simple SDK, you can surface these events directly in your apps, for example, in a **Next.js** application. This makes it easy to build real-time experiences, like handling M-Pesa **STK Express** payments, without worrying about the underlying plumbing.
+**Devhooks Ingest** handles the production concerns: request queuing, automatic retries with exponential backoff, payload validation, and detailed logging. All the infrastructure stuff you don't want to build yourself.
 
----
+**Devhooks Sync** converts webhook events into real-time streams that your frontend can subscribe to directly. This solves the polling problem where your UI constantly asks "is the payment done yet?" Instead, payment confirmations push to your frontend the moment the webhook arrives.
 
-<!-- https://www.devhooks.live/new-hook -->
+You can check out the full dashboard at [devhooks.live/ingest](https://devhooks.live/ingest).
 
-## Try Devhooks Today
+The SDK integration is straightforward for frameworks like Next.js. Here's how it looks for handling M-Pesa STK Express payments:
 
-If you enjoyed this post, you can explore **[Devhooks](https://devhooks.live)** our free, live beta built right here in Nairobi. Devhooks makes working with webhooks and real-time events simple, reliable, and developer-friendly.
+```javascript
+import { SyncClient } from "@jkitsao/echo";
 
-- **Live Beta:** [devhooks.live](https://devhooks.live)
-- **Contact / Feedback:** kitsao@devhooks.live
+const client = new SyncClient({
+  sourceId: "payment-handler",
+  secret: process.env.DEVHOOKS_SECRET,
+});
 
-I’d really appreciate your thoughts and feedback, this is my passion project, built to make developer workflows smoother and more predictable. Your input helps shape Devhooks into a tool that truly serves the community.
+client.on("event", (data) => {
+  if (data.type === "mpesa_callback") {
+    // Payment completed, update UI immediately
+    updatePaymentStatus(data.ResultCode === "0" ? "success" : "failed");
+  }
+});
+```
+
+No polling intervals, no manual retry logic, no connection management. Just subscribe to the events you care about.
+
+## Technical Architecture Notes
+
+Under the hood, this runs on Cloudflare's edge infrastructure. Webhook ingestion happens at the nearest edge location, which reduces latency for callbacks from services like M-Pesa. Events get processed through Durable Objects for state management and delivered via WebSocket connections to subscribed clients.
+
+The retry mechanism uses exponential backoff with jitter, and failed webhook deliveries get queued for up to 72 hours. Event streams include replay functionality for clients that disconnect and need to catch up on missed events.
+
+Authentication uses short-lived tokens that refresh automatically, so you don't have to handle token expiration manually in your client code.
+
+## Current Status
+
+Devhooks is in live beta and built here in Nairobi. I'm using it across my own projects and working with a few other developers who've been testing it on their webhook integrations.
+
+The free tier covers 5,000 events per day, which handles most development and small production workloads. No credit card required to get started.
+
+If you're dealing with webhook pain points in your projects, you might find this useful:
+
+- **Try it:** [devhooks.live](https://devhooks.live)
+- **Questions/Feedback:** kitsao@devhooks.live
+- **Documentation:** Available in the dashboard after signup
+
+I'm particularly interested in feedback from developers working on payment integrations or real-time applications. The goal is to make webhook infrastructure invisible so you can focus on the business logic that actually matters.
