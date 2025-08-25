@@ -1,13 +1,13 @@
 ---
 title: "Reactive M-Pesa Webhooks with Devhooks Sync ⚡"
 excerpt: "Turn M-Pesa STK Push payloads into live event streams and push updates to your frontend instantly with Devhooks Sync."
-coverImage: "/assets/blog/devhooks-sync-mpesa/flow.jpg"
+coverImage: "/assets/blog/devhooks-sync-mpesa/sync-enable.png"
 date: "2025-08-25T12:00:00.000Z"
 author:
   name: Jackson Kitsao
   picture: "/assets/blog/authors/profile.png"
 ogImage:
-  url: "/assets/blog/devhooks-sync-mpesa/flow.jpg"
+  url: "/assets/blog/devhooks-sync-mpesa/sync-enable.png"
 ---
 
 ## Turning M-Pesa Webhooks into Real-Time Event Streams
@@ -18,7 +18,7 @@ I've been wrestling with M-Pesa STK Push webhooks for a while now. The usual pat
 
 If you want to understand the technical implementation details, I documented the [DIY approach using Cloudflare Durable Objects here](https://blog.devhooks.live/posts/mpesa-cloudflare-durable-reactive-stk). But I got tired of rebuilding this infrastructure for every project, so I packaged it into something reusable.
 
-![Devhooks Dashboard Webhook Setup](/assets/blog/devhooks-sync-mpesa/hook-sync.jpg)
+![Devhooks Dashboard Webhook Setup](/assets/blog/devhooks-sync-mpesa/sync-enable.png)
 
 ## The M-Pesa Async Problem
 
