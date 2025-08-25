@@ -388,35 +388,36 @@ export default {
 
 ## What We Just Built (In Plain English)
 
-Let me break down what this code actually accomplishes in simple terms:
+Here’s what this code actually accomplishes in simple terms:
 
 **Before (The Old Way):**
 
-- You initiate M-Pesa payment
-- Your app asks the database "Is it done yet?" every 2 seconds
-- Database says "Nope" 29 times
-- Finally says "Yes!" on attempt 30
-- User waited 60 seconds staring at a loading screen
+- You initiate a Safaricom M-Pesa payment.
+- Your app asks the database "Is it done yet?" every 2 seconds.
+- The database says "Nope" 29 times.
+- Finally says "Yes!" on attempt 30.
+- User waits a whole minute staring at a spinning loading screen.
 
 **After (Our Durable Objects Way):**
 
-- You initiate M-Pesa payment
-- Your app opens a "direct phone line" (WebSocket) to a dedicated assistant (Durable Object)
-- The assistant waits patiently for M-Pesa to call back
-- M-Pesa calls with results
-- Assistant immediately shouts the good news down the phone line
-- User sees instant update - no waiting, no refresh button
+- You initiate a Safaricom M-Pesa payment.
+- Your app opens a "direct phone line" (WebSocket) to a dedicated assistant (Durable Object).
+- The assistant waits patiently for M-Pesa to call back.
+- M-Pesa calls with the transaction results.
+- The assistant immediately sends the update down the line.
+- User sees instant confirmation, no waiting, no refresh button.
 
 **The Magic Ingredients:**
 
-1. **The Personal Assistant (Durable Object)**: Each payment gets its own dedicated helper that never forgets and never goes offline
-2. **The Direct Phone Line (WebSocket)**: A always-on connection between your webpage and the assistant
-3. **The Callback Handler**: When M-Pesa calls back, the assistant immediately knows which payment it belongs to and who to notify
+1. **The Personal Assistant (Durable Object):** Each payment gets its own helper that never forgets and never goes offline.
+2. **The Direct Phone Line (WebSocket):** An always-on connection between your webpage and the assistant.
+3. **The Callback Handler:** When M-Pesa calls back, the assistant immediately knows which payment it belongs to and who to notify.
 
 **Real-World Impact:**
-Instead of your users sitting there wondering "Did my payment work? Should I try again?", they get immediate feedback. No more double payments, no more abandoned transactions, no more frustrated customers.
 
-It's like the difference between sending a letter and waiting weeks for a reply versus having a real-time phone conversation.
+Instead of users sitting there wondering "Did my payment go through? Should I try again?", they get immediate feedback. No more double payments, no more abandoned transactions, no more frustrated customers.
+
+It’s like the difference between sending a courier with a letter and waiting a week versus chatting directly on WhatsApp — instant, real-time, and reliable.
 
 ## The New User Experience
 
