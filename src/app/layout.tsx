@@ -1,6 +1,7 @@
 import Footer from "@/app/_components/footer";
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
+import { Analytics } from '@vercel/analytics/next';
 import { Inter } from "next/font/google";
 import cn from "classnames";
 import { ThemeSwitcher } from "./_components/theme-switcher";
@@ -75,6 +76,7 @@ export default function RootLayout({
       >
         <ThemeSwitcher />
         <div className="min-h-screen">{children}</div>
+        <Analytics />
         <Footer />
       </body>
     </html>
