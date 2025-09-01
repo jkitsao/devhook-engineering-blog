@@ -66,10 +66,8 @@ export default function PaymentPage() {
     });
 
     client.on("event", (data) => {
-      if (data.type === "mpesa_callback") {
-        setPaymentStatus(data.ResultCode === "0" ? "success" : "failed");
-        console.log("Payment callback received:", data);
-      }
+      setPaymentStatus(data.ResultCode === "0" ? "success" : "failed");
+      console.log("Payment callback received:", data);
     });
 
     client.connect();

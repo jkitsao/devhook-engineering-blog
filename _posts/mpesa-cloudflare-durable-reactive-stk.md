@@ -1,6 +1,7 @@
 ---
 title: "Instant M-Pesa STK Payments with Cloudflare Durable Objects 🌩️"
-excerpt: "Ditch the polling madness. Use Durable Objects and WebSockets to create truly reactive M-Pesa integrations that update instantly."
+excerpt: "Stop polling. Start streaming M-Pesa updates in real time.
+."
 coverImage: "/assets/blog/mpesa-cloudflare-reactive/cover.jpeg"
 date: "2025-08-24T14:30:00.000Z"
 author:
@@ -33,32 +34,37 @@ async function checkPaymentStatus(merchantRequestId) {
 }
 ```
 
-This approach has serious issues:
-
-- **Wasteful**: Constant database hits even when nothing changes
-- **Slow**: 2-second intervals mean users wait unnecessarily
-- **Unreliable**: Easy to miss the webhook if polling stops
-- **Expensive**: Database queries add up fast
+This approach comes with several serious drawbacks. It’s **wasteful** because it keeps hitting the database even when nothing has changed. It’s also **slow** relying on fixed 2-second intervals means users end up waiting longer than necessary. On top of that, it’s **unreliable**; if polling ever stops, you could easily miss an important webhook. Finally, it’s **expensive** since all those repeated database queries add up quickly.
 
 ## What Are Cloudflare Durable Objects?
 
-Before diving into the solution, let's quickly understand what makes Durable Objects special.
+Before diving into the solution, let's quickly understand why **Cloudflare Durable Objects** are special.
 
-**Durable Objects** are Cloudflare’s stateful serverless solution. They let you store and manage data **right next to your compute**, unlike traditional serverless functions which are stateless and ephemeral(Brief).
+Durable Objects are Cloudflare’s **stateful serverless** solution. Unlike traditional stateless functions, they let you **store and manage data right next to your compute**.
 
-Durable Objects give you a single, consistent instance of your data anywhere in the world. Your state is persistent, surviving between requests, and you can even keep long-lived connections like WebSockets open. Cloudflare automatically moves your objects closer to where they’re being used, and you never have to worry about eventual consistency, reads always reflect the latest writes.
+You get a **single, consistent instance of your data** anywhere in the world. State persists between requests, long-lived connections like WebSockets stay open, and **reads always reflect the latest writes**. Cloudflare even **moves your objects closer to where they're used**, so you don’t worry about eventual consistency.
 
-Think of them as **mini-servers** that automatically scale and migrate based on usage patterns. Perfect for our payment tracking use case where we need to maintain state between the STK initiation and the webhook callback.
+Think of them as **mini-servers** that scale and migrate automatically. For our use case tracking payments between **STK initiation** and the **webhook callback** this is perfect, since we need to maintain **state** across multiple steps.
 
-What really blows my mind (and Josh Howard, Senior Engineering Manager at Cloudflare, explains this beautifully) is that Durable Objects are designed to **scale out to billions**, you can literally have one per customer. And since they can **move closer to the customer** and handle requests individually, the model is insanely powerful. This isn’t just theory it’s a whole new way of thinking about distributed systems. Honestly, I really love what Cloudflare is doing here ❤️.
+And here’s what blows my mind (Josh Howard at Cloudflare explains this beautifully): Durable Objects are built to **scale to millions**. You can literally have **one per customer**, and because they **move closer to users** and handle requests individually, the model is insanely powerful.
 
-> 📚 **Learn More**: Check out the [Durable Objects documentation](https://developers.cloudflare.com/durable-objects/), this excellent [introductory blog post](https://blog.cloudflare.com/introducing-durable-objects/) from Cloudflare, and [this talk by Josh Howard (Senior Engineering Manager at Cloudflare)](https://www.youtube.com/watch?v=C5-741uQPVU) where he breaks it down.
+This isn’t just theory it’s a whole new way of thinking about distributed systems. **Honestly, I love what Cloudflare is doing here ❤️**. They’re solving hard problems elegantly, and Durable Objects are a perfect example of that.
+
+> 📚 **Learn More**: Check out the [Durable Objects documentation](https://developers.cloudflare.com/durable-objects/), this excellent [introductory blog post](https://blog.cloudflare.com/introducing-durable-objects/) from Cloudflare, and [this interview with Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) where he breaks it down beautifully.
+
+---
 
 ## The Durable Objects Solution
 
-With this understanding, here's how we can leverage Durable Objects to create **stateful, globally consistent** payment sessions that can hold WebSocket connections and react to webhooks instantly.
+Now that we understand why Durable Objects are so special, let’s apply them to a real-world problem: **building reactive M-Pesa STK payment tracking**.
 
-Here's the architecture:
+Our goal is simple:
+
+- Start an **STK push**
+- **Track the payment status** instantly
+- Update the UI in **real time** without polling, delays, or race conditions.
+
+Here’s the architecture at a glance:
 
 ```
 ┌─────────────────┐    WebSocket    ┌──────────────────┐
@@ -72,33 +78,51 @@ Here's the architecture:
                                     └──────────────────┘
 ```
 
+Durable Objects sit at the **center** of this flow:
+
+- They **initiate STK pushes**.
+- They **listen for webhook callbacks**.
+- And they **push updates to the browser instantly** via WebSockets.
+
+No polling. No delays. No missed updates.
+
+---
+
 ## Let’s Build It Together
 
-Before we dive into code, here’s some helpful context to get you started:
+Before we dive into code, here’s some helpful context to get you started.
 
-Cloudflare provides the **Wrangler CLI** to manage and deploy Durable Objects quickly, and their official documentation and GitHub examples make spinning one up a breeze.
+Cloudflare provides the **Wrangler CLI** to manage and deploy Durable Objects quickly, and their official docs and GitHub examples make spinning one up a breeze.
 
-This guide isn’t a **Durable Objects 101** instead, it’s laser-focused on how to solve a specific use case: **reliably tracking payments between the STK initiation and the webhook callback**.
+This guide isn’t a **Durable Objects 101**, it’s laser-focused on solving one problem:  
+**reliably tracking payments between STK initiation and the webhook callback**.
 
-If you're new to Durable Objects or want to understand the foundations, check these out:
+If you’re new to Durable Objects and want to dive deeper into the foundations, check these out:
 
 - [Wrangler CLI; start building with ease](https://developers.cloudflare.com/workers/wrangler/)
 - [Cloudflare Durable Objects examples](https://developers.cloudflare.com/durable-objects/examples/)
-- [🎥 Intro to Durable Objects (YouTube)](https://www.youtube.com/watch?v=qF2PuYnBahw&pp=ygUQZHVyYWJsZSBvYmplY3RzIA%3D%3D) - a clear, beginner-friendly overview
-- [🎥 How Durable Objects and D1 Work: A Deep Dive with Cloudflare’s Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) - Josh Howard, Senior Engineering Manager at Cloudflare, explains how Durable Objects (and D1) actually work under the hood.
+- [🎥 Intro to Durable Objects (YouTube)](https://www.youtube.com/watch?v=qF2PuYnBahw&pp=ygUQZHVyYWJsZSBvYmplY3RzIA%3D%3D)
+- [🎥 How Durable Objects and D1 Work: A Deep Dive with Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU)
 
-Once you're familiar with the basics, We can jump into building our actual payment tracking solution.
+Once you’re familiar with the basics, it’s time to put everything together and **build our payment tracking solution**.
+
+---
 
 ### Create the Payment Durable Object
 
-This Durable Object manages a **single payment session** from start to finish.  
-It handles three things:
+For this implementation, each Durable Object will manage a **single payment session** from start to finish.  
+Think of it like a **mini-payment controller** that handles everything related to one transaction in isolation.
 
-- **WebSocket connections** for real-time status updates.
-- **STK push initiation** to start an M-Pesa payment.
-- **Webhook handling** to process Daraja callbacks and instantly notify the client.
+Here’s what it does:
 
-It combines storage, WebSockets, and API endpoints in one isolated session for every customer.
+- **WebSocket connections** → keeps the browser updated in **real time**.
+- **STK push initiation** → starts the M-Pesa payment.
+- **Webhook handling** → processes Daraja callbacks and instantly notifies the client.
+
+The beauty of Durable Objects here is that we don’t need to glue together multiple services or store session state elsewhere.  
+Everything; **storage, WebSockets, and API endpoints** lives in one isolated instance **per customer**. That’s exactly what makes this approach elegant and reactive.
+
+Here’s the Durable Object implementation:
 
 ```typescript
 export class PaymentSession {
@@ -133,7 +157,7 @@ export class PaymentSession {
 
     server.accept();
 
-    // Send any existing payment data
+    // Send any existing payment data to the client immediately
     if (this.paymentData) {
       server.send(
         JSON.stringify({
@@ -214,7 +238,7 @@ export class PaymentSession {
       completedAt: new Date().toISOString(),
     };
 
-    // 🚀 INSTANT notification to WebSocket client
+    // 🚀 Instant notification to WebSocket client
     if (this.webSocket) {
       this.webSocket.send(
         JSON.stringify({
@@ -247,41 +271,39 @@ export class PaymentSession {
 
 ## Preparing for WebSockets in the Frontend
 
-Before we dive into the frontend code, let's run through what WebSockets do and why they matter. Unlike regular HTTP requests, which are one-way and short-lived, WebSockets create a **persistent two-way connection** between the client and server. This lets the server push updates instantly, which is perfect for real-time use cases like chat, multiplayer games, or tracking payment status.
+With the Durable Object ready, the next step is wiring up the **frontend** so we can receive **real-time payment updates**.  
+This is where **WebSockets** come in.
 
-The flow is simple:
+Unlike regular HTTP requests, WebSockets keep a **persistent two-way connection** open between the browser and the Durable Object. That means the moment M-Pesa sends a payment update, your UI reacts instantly — no polling, no delays.
 
-1. The client connects to a WebSocket.
-2. A Durable Object keeps track of the connection.
-3. When an event occurs (like a payment update), the Durable Object immediately sends the update to the client.
+Here’s the flow:
 
-For more background, see [MDN WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) and [MDN HTTP vs WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers).
+1. The client connects to the session’s WebSocket.
+2. The Durable Object tracks that connection.
+3. Whenever a payment status changes, the Durable Object **pushes** the update to the client immediately.
+
+If you’re new to WebSockets, [MDN’s guide](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) has a great primer but let’s dive straight into the code.
 
 ```javascript
 import React, { useState, useEffect, useRef } from "react";
 
-// Component for handling M-Pesa payments
 export default function MpesaPayment({ customerId }) {
   const [statusMessage, setStatusMessage] = useState("");
-
   const [paymentResponse, setPaymentResponse] = useState(null);
+  const wsRef = useRef(null); // persistent WebSocket
 
-  // WebSocket instance (persistent across renders)
-  const wsRef = useRef(null);
-
-  //  Initiate payment
   const initiatePayment = async (phoneNumber, amount) => {
-    // Create a WebSocket connection to the customer's Durable Object
+    // Connect to the Durable Object WebSocket
     const wsUrl = `wss://your-worker.your-subdomain.workers.dev/sessions/${customerId}/websocket`;
     wsRef.current = new WebSocket(wsUrl);
 
-    // Listen for messages from the server
+    // Listen for real-time updates
     wsRef.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
       handlePaymentUpdate(message);
     };
 
-    // Send POST request to initiate the STK push
+    // Start the STK Push request
     const response = await fetch(`/sessions/${customerId}/initiate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -297,19 +319,21 @@ export default function MpesaPayment({ customerId }) {
     return data;
   };
 
-  // Handle payment updates coming from WebSocket
   const handlePaymentUpdate = (message) => {
     switch (message.type) {
       case "STK_INITIATED":
-        showPendingState(message.data);
+        setStatusMessage("📱 Check your phone for the M-Pesa prompt...");
         break;
       case "PAYMENT_COMPLETED":
         if (message.data.status === "SUCCESS") {
-          showSuccessState(message.data);
+          setStatusMessage(
+            `✅ Payment successful! Receipt: ${message.data.mpesaReceiptNumber}`
+          );
         } else {
-          showFailureState(message.data);
+          setStatusMessage(
+            `❌ Payment failed. Reason: ${message.data.reason || "Unknown"}`
+          );
         }
-        // Close the WebSocket after completion
         wsRef.current?.close();
         break;
       default:
@@ -317,28 +341,9 @@ export default function MpesaPayment({ customerId }) {
     }
   };
 
-  // pending payment state
-  const showPendingState = (data) => {
-    setStatusMessage(`📱 Check your phone for M-Pesa prompt...`);
-  };
-
-  // successful payment state
-  const showSuccessState = (data) => {
-    setStatusMessage(
-      `✅ Payment successful! Receipt: ${data.mpesaReceiptNumber}`
-    );
-  };
-
-  // failed payment state
-  const showFailureState = (data) => {
-    setStatusMessage(`❌ Payment failed. Reason: ${data.reason || "Unknown"}`);
-  };
-
-  // Cleanup WebSocket on unmount
+  // Clean up the WebSocket on unmount
   useEffect(() => {
-    return () => {
-      wsRef.current?.close();
-    };
+    return () => wsRef.current?.close();
   }, []);
 
   return (
@@ -358,7 +363,8 @@ export default function MpesaPayment({ customerId }) {
 
 ### Worker Routing
 
-This Cloudflare Worker acts as a proxy for customer-specific Durable Objects. It parses the URL to extract a customerId and forwards the request to that customer’s Durable Object instance.
+Finally, the Cloudflare Worker routes each request to the correct customer-specific Durable Object.
+It parses the customerId from the URL and forwards the request
 
 ```typescript
 // worker.ts

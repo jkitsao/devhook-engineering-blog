@@ -60,11 +60,13 @@ No polling intervals, no manual retry logic, no connection management. Just subs
 
 ## Technical Architecture Notes
 
-Under the hood, this runs on Cloudflare's edge infrastructure. Webhook ingestion happens at the nearest edge location, which reduces latency for callbacks from services like M-Pesa. Events get processed through Durable Objects for state management and delivered via WebSocket connections to subscribed clients.
+Under the hood, Devhooks runs on Cloudflare’s edge infrastructure. Webhook ingestion itself is built on top of a serverless Redis setup, which handles incoming events reliably and at low latency for example, callbacks from M-Pesa are processed close to the source.
 
-The retry mechanism uses exponential backoff with jitter, and failed webhook deliveries get queued for up to 72 hours. Event streams include replay functionality for clients that disconnect and need to catch up on missed events.
+The **real-time sync feature** uses **Durable Objects** for state management, enabling instant delivery of updates via WebSocket connections to subscribed clients.
 
-Authentication uses short-lived tokens that refresh automatically, so you don't have to handle token expiration manually in your client code.
+Failed webhook deliveries are retried using exponential backoff with jitter, and events can be queued for up to 72 hours. Clients can also replay event streams to catch up on any missed updates.
+
+<!-- Authentication relies on short-lived tokens that refresh automatically, so clients don’t need to manage token expiration manually. -->
 
 ## Current Status
 

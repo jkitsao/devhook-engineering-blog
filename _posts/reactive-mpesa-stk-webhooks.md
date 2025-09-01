@@ -118,7 +118,7 @@ Here's the better way:
 2.  The backend listens for Daraja's **callback webhook**.
 3.  When the webhook arrives, **match the `MerchantRequestID`** to the one stored.
 4.  Broadcast the result via **WebSockets** to the frontend or POS terminal.
-5.  The UI updates instantly — no refresh, no polling, no "try again later."
+5.  The UI updates instantly no refresh, no polling, no "try again later."
 
 I've written about two solid implementations for this:
 
