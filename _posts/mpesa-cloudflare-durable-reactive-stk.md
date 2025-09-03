@@ -1,7 +1,6 @@
 ---
 title: "Instant M-Pesa STK Payments with Cloudflare Durable Objects 🌩️"
-excerpt: "Stop polling. Start streaming M-Pesa updates in real time.
-."
+excerpt: "Stop polling. Start streaming M-Pesa updates in real time."
 coverImage: "/assets/blog/mpesa-cloudflare-reactive/cover.jpeg"
 date: "2025-08-24T14:30:00.000Z"
 author:
@@ -50,7 +49,7 @@ And here’s what blows my mind (Josh Howard at Cloudflare explains this beautif
 
 This isn’t just theory it’s a whole new way of thinking about distributed systems. **Honestly, I love what Cloudflare is doing here ❤️**. They’re solving hard problems elegantly, and Durable Objects are a perfect example of that.
 
-> 📚 **Learn More**: Check out the [Durable Objects documentation](https://developers.cloudflare.com/durable-objects/), this excellent [introductory blog post](https://blog.cloudflare.com/introducing-durable-objects/) from Cloudflare, and [this interview with Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) where he breaks it down beautifully.
+> 📚 **Learn More**: Check out the [Durable Objects documentation](https://developers.cloudflare.com/durable-objects/), this excellent [Introductory blog posts](https://blog.cloudflare.com/tag/durable-objects/) from Cloudflare, and [this interview with Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) where he breaks it down beautifully.
 
 ---
 
