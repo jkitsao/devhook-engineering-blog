@@ -37,7 +37,7 @@ This approach comes with several serious drawbacks. It’s **wasteful** because 
 
 ## What Are Cloudflare Durable Objects?
 
-Before diving into the solution, let's quickly understand why **Cloudflare Durable Objects** are special.
+Before diving into the solution, let's quickly understand why Cloudflare Durable Objects are special.
 
 Durable Objects are Cloudflare’s stateful serverless solution. Unlike traditional stateless functions, they let you store and manage data right next to your compute.
 
@@ -54,7 +54,7 @@ This isn’t just theory it’s a whole new way of thinking about distributed sy
 
 ## The Durable Objects Solution
 
-Now that we understand why Durable Objects are so special, let’s apply them to a real-world problem: **building reactive M-Pesa STK payment tracking**.
+Now that we understand why Durable Objects are so special, let’s apply them to a real-world problem: building reactive M-Pesa STK payment tracking.
 
 Our goal is simple:
 
@@ -92,7 +92,7 @@ Before we dive into code, here’s some helpful context to get you started.
 
 Cloudflare provides the Wrangler CLI to manage and deploy Durable Objects quickly, and their official docs and GitHub examples make spinning one up a breeze.
 
-This guide isn’t a **Durable Objects 101**, it’s laser-focused on solving one problem:  
+This guide isn’t a Durable Objects 101, it’s laser-focused on solving one problem:  
 **reliably tracking payments between STK initiation and the webhook callback**.
 
 If you’re new to Durable Objects and want to dive deeper into the foundations, check these out:
@@ -102,14 +102,14 @@ If you’re new to Durable Objects and want to dive deeper into the foundations,
 - [🎥 Intro to Durable Objects (YouTube)](https://www.youtube.com/watch?v=qF2PuYnBahw&pp=ygUQZHVyYWJsZSBvYmplY3RzIA%3D%3D)
 - [🎥 How Durable Objects and D1 Work: A Deep Dive with Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU)
 
-Once you’re familiar with the basics, it’s time to put everything together and **build our payment tracking solution**.
+Once you’re familiar with the basics, it’s time to put everything together and build our payment tracking solution.
 
 ---
 
 ### Create the Payment Durable Object
 
-For this implementation, each Durable Object will manage a **single payment session** from start to finish.  
-Think of it like a **mini-payment controller** that handles everything related to one transaction in isolation.
+For this implementation, each Durable Object will manage a single payment session from start to finish.  
+Think of it like a mini-payment controller that handles everything related to one transaction in isolation.
 
 Here’s what it does:
 
@@ -118,7 +118,7 @@ Here’s what it does:
 - **Webhook handling** → processes Daraja callbacks and instantly notifies the client.
 
 The beauty of Durable Objects here is that we don’t need to glue together multiple services or store session state elsewhere.  
-Everything; **storage, WebSockets, and API endpoints** lives in one isolated instance **per customer**. That’s exactly what makes this approach elegant and reactive.
+Everything; storage, WebSockets, and API endpoints lives in one isolated instance per customer. That’s exactly what makes this approach elegant and reactive.
 
 Here’s the Durable Object implementation:
 
@@ -272,7 +272,7 @@ export class PaymentSession {
 With the Durable Object ready, the next step is wiring up the frontend so we can receive real-time payment updates.  
 This is where **WebSockets** come in.
 
-Unlike regular HTTP requests, WebSockets keep a **persistent two-way connection** open between the browser and the Durable Object. That means the moment M-Pesa sends a payment update, your UI reacts instantly no polling, no delays.
+Unlike regular HTTP requests, WebSockets keep a persistent two-way connection open between the browser and the Durable Object. That means the moment M-Pesa sends a payment update, your UI reacts instantly no polling, no delays.
 
 Here’s the flow:
 
