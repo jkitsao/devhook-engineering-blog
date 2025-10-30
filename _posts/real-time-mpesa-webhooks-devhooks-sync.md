@@ -124,4 +124,6 @@ The setup is minimal if you want to try this approach:
 
 Turning webhooks into reactive streams eliminates a whole class of polling-related problems. If you're dealing with M-Pesa integration headaches, this approach might save you some time.
 
-<img src='https://api.devhooks.live/assets/859a5a9b-4c0f-4f1e-bd6b-c52048eb30e8?key=system-large-contain'>
+<!-- <img src='https://api.devhooks.live/assets/859a5a9b-4c0f-4f1e-bd6b-c52048eb30e8?key=system-large-contain'> -->
+
+![Ibiz Strathmore](https://api.devhooks.live/assets/859a5a9b-4c0f-4f1e-bd6b-c52048eb30e8?key=system-large-contain)

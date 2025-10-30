@@ -451,4 +451,6 @@ This pattern transforms the traditionally clunky M-Pesa integration into a smoot
 
 Next up, I'll cover how to handle **connection failures** and **webhook retries** to make this bulletproof. Stay tuned! 🛡️
 
-<img src='https://api.devhooks.live/assets/111d8164-2db7-4219-a5ca-00da1bf39cb8?key=system-large-contain'>
+<!-- <img src='https://api.devhooks.live/assets/111d8164-2db7-4219-a5ca-00da1bf39cb8?key=system-large-contain'> -->
+
+![Nairobi](https://api.devhooks.live/assets/111d8164-2db7-4219-a5ca-00da1bf39cb8?key=system-large-contain)

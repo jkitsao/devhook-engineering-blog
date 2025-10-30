@@ -149,4 +149,6 @@ Of course, it’s not perfect. Mobile connections can drop, WebSocket connection
 
 ---
 
-<img src='https://api.devhooks.live/assets/85af022c-2299-491f-8d3c-4528f6d62932?key=system-large-contain'>
+<!-- <img src='https://api.devhooks.live/assets/85af022c-2299-491f-8d3c-4528f6d62932?key=system-large-contain'> -->
+
+![Garden City](https://api.devhooks.live/assets/85af022c-2299-491f-8d3c-4528f6d62932?key=system-large-contain)

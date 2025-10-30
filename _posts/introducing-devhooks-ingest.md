@@ -14,7 +14,7 @@ ogImage:
 
 I'm Kitsao, and I've been building [Devhooks.live](https://www.devhooks.live) to solve webhook problems I kept running into across different projects.
 
-Over the past few years, I've found myself dealing with event-driven architectures more often than I initially planned. At [MyMovies.Africa](https://mymovies.africa), I needed real-time updates for video encoding jobs and ended up hacking together an Event source system. Later, working at [Old Mutual](https://www.oldmutual.co.ke), I was deep in M-Pesa integrations paybills, STK push callbacks, the usual payment workflow stuff. These days, I’m working in the broader fintech and microfinance space, focusing on infrastructure, integrations, and the occasional event-driven headache.
+Over the past few years, I've found myself dealing with event-driven architectures more often than I initially planned. At [MyMovies.Africa](https://mymovies.africa), I needed real-time updates for Video encoding jobs and ended up hacking together an Event source system. Later, working at [Old Mutual](https://www.oldmutual.co.ke), I was deep in M-Pesa integrations paybills, STK push callbacks, the usual payment workflow stuff. These days, I’m working in the broader fintech and microfinance space, focusing on infrastructure, integrations, and the occasional event-driven headache.
 
 The pattern became clear: Events/webhooks are everywhere, but the tooling around them is inconsistent and often frustrating.
 
@@ -32,7 +32,7 @@ I wanted to bridge that gap keep the simplicity of getting started quickly, but 
 
 **[Devhooks Debugger](https://www.devhooks.live/)** eliminates the ngrok dance when testing webhooks locally. You get a public URL that forwards to your local development server, with request inspection built in.
 
-**[Devhooks Ingest](https://www.devhooks.live/ingest/about)** handles the production concerns: request queuing, automatic retries with exponential backoff, payload validation, and detailed logging. All the infrastructure stuff you don't want to build yourself.
+**[Devhooks Ingest](https://www.devhooks.live/ingest/about)** handles the production concerns: request queuing, automatic retries with exponential backoff, payload validation, and detailed logging plus a robust Dead Letter Queue. All the infrastructure stuff you don't want to build yourself.
 
 **[Devhooks Sync](https://www.devhooks.live/)** converts webhook events into real-time streams that your frontend can subscribe to directly. This solves the polling problem where your UI constantly asks "is the payment done yet?" Instead, payment confirmations push to your frontend the moment the webhook arrives.
 
@@ -70,7 +70,7 @@ Failed webhook deliveries are retried using exponential backoff with jitter, and
 
 Devhooks is in live beta and built here in Nairobi. I'm using it across my own projects and working with a few other developers who've been testing it on their webhook integrations.
 
-The free tier covers 5,000 events per day, which handles most development and small production workloads. No credit card required to get started.
+The free tier covers upto 5,000,000 events per day, which handles most development and small production workloads. No credit card required to get started.
 
 If you're dealing with webhook pain points in your projects, you might find this useful:
 
@@ -80,6 +80,6 @@ If you're dealing with webhook pain points in your projects, you might find this
 
 I'm particularly interested in feedback from developers working on payment integrations or real-time applications. The goal is to make webhook/events infrastructure invisible so you can focus on the business logic that actually matters.
 
-<img src='https://api.devhooks.live/assets/6b50c958-7d1e-4e73-8fa7-b9f78e02880f?key=system-large-contain'>
+![Moringa career fair](https://api.devhooks.live/assets/6b50c958-7d1e-4e73-8fa7-b9f78e02880f?key=system-large-contain)
 
-<img src='https://api.devhooks.live/assets/2479cd94-6087-457e-8c53-0af4125f0140?key=system-large-contain'>
+![Moringa career fair](https://api.devhooks.live/assets/2479cd94-6087-457e-8c53-0af4125f0140?key=system-large-contain')
