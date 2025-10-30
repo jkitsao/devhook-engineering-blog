@@ -33,7 +33,7 @@ async function checkPaymentStatus(merchantRequestId) {
 }
 ```
 
-This approach comes with several serious drawbacks. It’s **wasteful** because it keeps hitting the database even when nothing has changed. It’s also **slow** relying on fixed 2-second intervals means users end up waiting longer than necessary. On top of that, it’s **unreliable**; if polling ever stops, you could easily miss an important webhook. Finally, it’s **expensive** since all those repeated database queries add up quickly.
+This approach comes with several serious drawbacks. It’s _wasteful_ because it keeps hitting the database even when nothing has changed. It’s also _slow_ relying on fixed 2-second intervals means users end up waiting longer than necessary. On top of that, it’s _unreliable_; if polling ever stops, you could easily miss an important webhook. Finally, it’s _expensive_ since all those repeated database queries add up quickly.
 
 ## What Are Cloudflare Durable Objects?
 
@@ -41,12 +41,12 @@ Before diving into the solution, let's quickly understand why Cloudflare Durable
 
 Durable Objects are Cloudflare’s stateful serverless solution. Unlike traditional stateless functions, they let you store and manage data right next to your compute.
 
-You get a single, consistent instance of your data anywhere in the world. State persists between requests, long-lived connections like WebSockets stay open, and reads always reflect the latest writes. Cloudflare even moves your objects closer to where they're us, so you don’t worry about eventual consistency.
+<!-- You get a single, consistent instance of your data anywhere in the world. State persists between requests, long-lived connections like WebSockets stay open, and reads always reflect the latest writes. Cloudflare even moves your objects closer to where they're us, so you don’t worry about eventual consistency. -->
 
 Think of them as mini-servers that scale and migrate automatically. For our use case tracking payments between STK initiation and the webhook callback this is perfect, since we need to maintain **state** across multiple steps
-And here’s what blows my mind (Josh Howard at Cloudflare explains this beautifully): Durable Objects are built to scale to millions. You can literally have one per customer, and because they move closer to users and handle requests individually, the model is insanely powerful.
+And here’s what blows my mind; Durable Objects are built to scale to millions. You can literally have one per customer, and because they move closer to users and handle requests individually, the model is insanely powerful.
 
-This isn’t just theory it’s a whole new way of thinking about distributed systems. Honestly, I love what Cloudflare is doing here ❤️. They’re solving hard problems elegantly, and Durable Objects are a perfect example of that.
+This is a whole new way of thinking about distributed systems. Honestly, I love what Cloudflare is doing here ❤️. They’re solving hard problems elegantly, and this is a perfect example of that.
 
 > 📚 **Learn More**: Check out the [Durable Objects documentation](https://developers.cloudflare.com/durable-objects/), this excellent [Introductory blog posts](https://blog.cloudflare.com/tag/durable-objects/) from Cloudflare, and [this interview with Josh Howard](https://www.youtube.com/watch?v=C5-741uQPVU) where he breaks it down beautifully.
 
@@ -58,9 +58,9 @@ Now that we understand why Durable Objects are so special, let’s apply them to
 
 Our goal is simple:
 
-- Start an **STK push**
-- **Track the payment status** instantly
-- Update the UI in **real time** without polling, delays, or race conditions.
+- Start an _STK push_
+- _Track the payment status_ instantly
+- Update the UI in _real time_ without polling, delays, or race conditions.
 
 Here’s the architecture at a glance:
 
@@ -450,3 +450,5 @@ The `{CUSTOMER_ID}` should be dynamically generated for each payment session.
 This pattern transforms the traditionally clunky M-Pesa integration into a smooth, modern payment experience. Your users will thank you for it!
 
 Next up, I'll cover how to handle **connection failures** and **webhook retries** to make this bulletproof. Stay tuned! 🛡️
+
+<img src='https://api.devhooks.live/assets/111d8164-2db7-4219-a5ca-00da1bf39cb8?key=system-large-contain'>

@@ -11,10 +11,10 @@ ogImage:
 ---
 
 A while back, I was buying tickets to _Fantastic Four_ on [**KenyaBuzz**](https://www.kenyabuzz.com/). You know the drill, pick the seats, confirm, hit pay, STK prompt pops up. I complete the payment… and then? Nothing.  
-I had to **manually press the refresh button** just to see if my payment had gone through.
+I had to _manually press the refresh button_ just to see if my payment had gone through.
 
-This isn’t just a [KenyaBuzz](https://www.kenyabuzz.com/) thing either, most Kenyan platforms that use **M-Pesa STK Push** do the same.  
-Some even add **background polling** to make it feel smoother, but that’s just the backend repeatedly hammering Daraja’s API until the status changes. It works, but:
+This isn’t just a [KenyaBuzz](https://www.kenyabuzz.com/) thing either, most Kenyan platforms that use M-Pesa STK Push do the same.  
+Some even add _background polling_ to make it feel smoother, but that’s just the backend repeatedly hammering Daraja’s API until the status changes. It works, but:
 
 - It’s wasteful —> constant calls for no reason.
 - It’s slow —> the frontend still lags behind the real payment event.
@@ -27,9 +27,9 @@ And this doesn’t just happen online.
 ### The Same Problem at Naivas... 🛒
 
 If you’ve paid via M-Pesa at a **Naivas** or **Quickmart** checkout, you’ve probably seen this too.  
-You complete the STK payment on your phone, but the cashier keeps **smashing the refresh key** on their POS terminal, waiting for the payment status to update. Sometimes it takes seconds, sometimes minutes, and when the network is slow, it’s even worse.
+You complete the STK payment on your phone, but the cashier keeps _smashing the refresh key_ on their POS terminal, waiting for the payment status to update. Sometimes it takes seconds, sometimes minutes, and when the network is slow, it’s even worse.
 
-This kind of **manual refreshing** is just a symptom of the same deeper problem, we’re **not listening to the events in real-time**.
+This kind of manual refreshing is just a symptom of the same deeper problem, we’re **not listening to the events in real-time**.
 
 ---
 
@@ -148,3 +148,5 @@ By making STK Push integrations **reactive**, you:
 Of course, it’s not perfect. Mobile connections can drop, WebSocket connections can fail, and you still need fallback logic, but I’ll dive into handling those edge cases in a follow-up post.
 
 ---
+
+<img src='https://api.devhooks.live/assets/85af022c-2299-491f-8d3c-4528f6d62932?key=system-large-contain'>

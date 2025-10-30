@@ -12,7 +12,7 @@ ogImage:
 
 ## Building Better Webhook Infrastructure
 
-I'm Jackson, and I've been building [Devhooks.live](https://www.devhooks.live) to solve webhook problems I kept running into across different projects.
+I'm Kitsao, and I've been building [Devhooks.live](https://www.devhooks.live) to solve webhook problems I kept running into across different projects.
 
 Over the past few years, I've found myself dealing with event-driven architectures more often than I initially planned. At [MyMovies.Africa](https://mymovies.africa), I needed real-time updates for video encoding jobs and ended up hacking together a webhook system. Later, working with [Old Mutual](https://www.oldmutual.co.ke), I was deep in M-Pesa integrations paybills, STK push callbacks, the usual payment workflow stuff. These days, I'm consulting on microfinance systems with Apache Fineract, and somehow I'm back to building around events and webhooks again.
 
@@ -26,17 +26,17 @@ Stripe spoils you in comparison. Their webhook implementation treats observabili
 
 I wanted to bridge that gap keep the simplicity of getting started quickly, but add the reliability and visibility that makes webhook debugging actually manageable.
 
-## What I Built
+## What I'm Building
 
 **Devhooks** addresses the specific pain points I kept hitting:
 
 **[Devhooks Debugger](https://www.devhooks.live/new-hook)** eliminates the ngrok dance when testing webhooks locally. You get a public URL that forwards to your local development server, with request inspection built in.
 
-**Devhooks Ingest** handles the production concerns: request queuing, automatic retries with exponential backoff, payload validation, and detailed logging. All the infrastructure stuff you don't want to build yourself.
+**[Devhooks Ingest](https://www.devhooks.live/ingest/about)** handles the production concerns: request queuing, automatic retries with exponential backoff, payload validation, and detailed logging. All the infrastructure stuff you don't want to build yourself.
 
-**Devhooks Sync** converts webhook events into real-time streams that your frontend can subscribe to directly. This solves the polling problem where your UI constantly asks "is the payment done yet?" Instead, payment confirmations push to your frontend the moment the webhook arrives.
+**[Devhooks Sync](https://www.devhooks.live/)** converts webhook events into real-time streams that your frontend can subscribe to directly. This solves the polling problem where your UI constantly asks "is the payment done yet?" Instead, payment confirmations push to your frontend the moment the webhook arrives.
 
-You can check out the full dashboard at [devhooks.live/ingest](https://devhooks.live/ingest).
+<!-- You can check out the full dashboard at [devhooks.live/ingest](https://devhooks.live/ingest). -->
 
 The SDK integration is straightforward for frameworks like Next.js. Here's how it looks for handling M-Pesa STK Express payments:
 
@@ -49,10 +49,8 @@ const client = new SyncClient({
 });
 
 client.on("event", (data) => {
-  if (data.type === "mpesa_callback") {
-    // Payment completed, update UI immediately
-    updatePaymentStatus(data.ResultCode === "0" ? "success" : "failed");
-  }
+  // Payment completed, update UI immediately
+  updatePaymentStatus(data.ResultCode === "0" ? "success" : "failed");
 });
 ```
 
@@ -60,9 +58,9 @@ No polling intervals, no manual retry logic, no connection management. Just subs
 
 ## Technical Architecture Notes
 
-Under the hood, Devhooks runs on Cloudflare’s edge infrastructure. Webhook ingestion itself is built on top of a serverless Redis setup, which handles incoming events reliably and at low latency for example, callbacks from M-Pesa are processed close to the source.
+Under the hood, Devhooks runs on an edge infrastructure. Webhook ingestion itself is built on top of a Redis setup, which handles incoming events reliably and at low latency for example, callbacks from M-Pesa are processed close to the source.
 
-The **real-time sync feature** uses **Durable Objects** for state management, enabling instant delivery of updates via WebSocket connections to subscribed clients.
+The **real-time sync feature** uses **Cloudlare Durable Objects** for state management, enabling instant delivery of updates via WebSocket connections to subscribed clients.
 
 Failed webhook deliveries are retried using exponential backoff with jitter, and events can be queued for up to 72 hours. Clients can also replay event streams to catch up on any missed updates.
 
@@ -81,3 +79,7 @@ If you're dealing with webhook pain points in your projects, you might find this
 - **Documentation:** Available in the dashboard after signup
 
 I'm particularly interested in feedback from developers working on payment integrations or real-time applications. The goal is to make webhook infrastructure invisible so you can focus on the business logic that actually matters.
+
+<img src='https://api.devhooks.live/assets/6b50c958-7d1e-4e73-8fa7-b9f78e02880f?key=system-large-contain'>
+
+<img src='https://api.devhooks.live/assets/2479cd94-6087-457e-8c53-0af4125f0140?key=system-large-contain'>

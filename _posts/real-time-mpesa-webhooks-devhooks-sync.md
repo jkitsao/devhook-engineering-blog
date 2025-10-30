@@ -14,7 +14,7 @@ ogImage:
 
 I've been wrestling with M-Pesa STK Push webhooks for a while now. The usual pattern is frustrating: webhook hits your backend, frontend polls repeatedly, users wait and refresh pages. After dealing with this pain enough times, I built something better.
 
-**Devhooks Sync** ingests webhooks on your behalf and converts each payload into a live event stream your frontend can subscribe to. No more polling loops or refresh buttons. Payment confirmations happen in real-time.
+**[Devhooks](https://www.devhooks.live/ingest/about)** ingests webhooks on your behalf and converts each payload into a live event stream your frontend can subscribe to. No more polling loops or refresh buttons. Payment confirmations happen in real-time.
 
 If you want to understand the technical implementation details, I documented the [DIY approach using Cloudflare Durable Objects here](https://blog.devhooks.live/posts/mpesa-cloudflare-durable-reactive-stk). But I got tired of rebuilding this infrastructure for every project, so I packaged it into something reusable.
 
@@ -123,3 +123,5 @@ The setup is minimal if you want to try this approach:
 <!-- **[Documentation](https://docs.devhooks.live)** | **[Examples](https://github.com/devhooks-live/examples)** | **[Discord](https://discord.gg/devhooks)** -->
 
 Turning webhooks into reactive streams eliminates a whole class of polling-related problems. If you're dealing with M-Pesa integration headaches, this approach might save you some time.
+
+<img src='https://api.devhooks.live/assets/859a5a9b-4c0f-4f1e-bd6b-c52048eb30e8?key=system-large-contain'>
