@@ -82,4 +82,4 @@ I'm particularly interested in feedback from developers working on payment integ
 
 ![Moringa career fair](https://api.devhooks.live/assets/6b50c958-7d1e-4e73-8fa7-b9f78e02880f?key=system-large-contain)
 
-![Moringa career fair](https://api.devhooks.live/assets/2479cd94-6087-457e-8c53-0af4125f0140?key=system-large-contain')
+![Moringa career fair](https://api.devhooks.live/assets/2479cd94-6087-457e-8c53-0af4125f0140?key=system-large-contain)
