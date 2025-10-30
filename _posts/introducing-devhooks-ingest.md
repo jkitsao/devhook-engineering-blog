@@ -14,9 +14,9 @@ ogImage:
 
 I'm Kitsao, and I've been building [Devhooks.live](https://www.devhooks.live) to solve webhook problems I kept running into across different projects.
 
-Over the past few years, I've found myself dealing with event-driven architectures more often than I initially planned. At [MyMovies.Africa](https://mymovies.africa), I needed real-time updates for video encoding jobs and ended up hacking together a webhook system. Later, working with [Old Mutual](https://www.oldmutual.co.ke), I was deep in M-Pesa integrations paybills, STK push callbacks, the usual payment workflow stuff. These days, I'm consulting on microfinance systems with Apache Fineract, and somehow I'm back to building around events and webhooks again.
+Over the past few years, I've found myself dealing with event-driven architectures more often than I initially planned. At [MyMovies.Africa](https://mymovies.africa), I needed real-time updates for video encoding jobs and ended up hacking together an Event source system. Later, working at [Old Mutual](https://www.oldmutual.co.ke), I was deep in M-Pesa integrations paybills, STK push callbacks, the usual payment workflow stuff. These days, I’m working in the broader fintech and microfinance space, focusing on infrastructure, integrations, and the occasional event-driven headache.
 
-The pattern became clear: webhooks are everywhere, but the tooling around them is inconsistent and often frustrating.
+The pattern became clear: Events/webhooks are everywhere, but the tooling around them is inconsistent and often frustrating.
 
 ## The Developer Experience Gap
 
@@ -30,7 +30,7 @@ I wanted to bridge that gap keep the simplicity of getting started quickly, but 
 
 **Devhooks** addresses the specific pain points I kept hitting:
 
-**[Devhooks Debugger](https://www.devhooks.live/new-hook)** eliminates the ngrok dance when testing webhooks locally. You get a public URL that forwards to your local development server, with request inspection built in.
+**[Devhooks Debugger](https://www.devhooks.live/)** eliminates the ngrok dance when testing webhooks locally. You get a public URL that forwards to your local development server, with request inspection built in.
 
 **[Devhooks Ingest](https://www.devhooks.live/ingest/about)** handles the production concerns: request queuing, automatic retries with exponential backoff, payload validation, and detailed logging. All the infrastructure stuff you don't want to build yourself.
 
@@ -78,7 +78,7 @@ If you're dealing with webhook pain points in your projects, you might find this
 - **Questions/Feedback:** kitsao@devhooks.live
 - **Documentation:** Available in the dashboard after signup
 
-I'm particularly interested in feedback from developers working on payment integrations or real-time applications. The goal is to make webhook infrastructure invisible so you can focus on the business logic that actually matters.
+I'm particularly interested in feedback from developers working on payment integrations or real-time applications. The goal is to make webhook/events infrastructure invisible so you can focus on the business logic that actually matters.
 
 <img src='https://api.devhooks.live/assets/6b50c958-7d1e-4e73-8fa7-b9f78e02880f?key=system-large-contain'>
 
